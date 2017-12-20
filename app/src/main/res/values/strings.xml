@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">VideoDownloader</string>
+	<string name="intro_name">Intro</string>
 </resources>

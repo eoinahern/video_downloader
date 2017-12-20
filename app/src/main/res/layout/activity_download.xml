@@ -6,4 +6,17 @@
 	android:layout_height="match_parent"
 	tools:context="videodownloader.eoinahern.ie.videodownloader.ui.download.DownloadActivity">
 
+	<android.support.v7.widget.Toolbar
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		android:background="@color/colorPrimaryDark"
+		android:id="@+id/toolbar"
+		app:theme="@style/ToolBarStyle"
+		app:title="@string/app_name"
+		>
+
+
+	</android.support.v7.widget.Toolbar>
+	
+	
 </android.support.constraint.ConstraintLayout>
