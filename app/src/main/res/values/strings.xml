@@ -1,4 +1,4 @@
 <resources>
 	<string name="app_name">VideoDownloader</string>
-	<string name="intro_name">Intro</string>
+	<string name="download_name">Download</string>
 </resources>

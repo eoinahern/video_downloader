@@ -18,7 +18,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_download)
 
-		toolbar.setTitle(R.string.intro_name)
+		toolbar.setTitle(R.string.download_name)
 		toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent))
 		setSupportActionBar(toolbar)
 	}
