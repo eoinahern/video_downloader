@@ -2,7 +2,6 @@ package videodownloader.eoinahern.ie.videodownloader.ui.base
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import butterknife.ButterKnife
 
 abstract class BaseActivity : AppCompatActivity() {
 
