@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 open abstract class BaseInteractor<T> {
 
-	var disposables: CompositeDisposable = CompositeDisposable()
+	private val disposables: CompositeDisposable = CompositeDisposable()
 
 	fun execute(obs: DisposableObserver<T>) {
 

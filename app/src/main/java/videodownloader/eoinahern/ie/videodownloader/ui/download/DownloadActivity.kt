@@ -17,7 +17,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn : Button by bindView(R.id.download_btn)
 	private val urlTxt : EditText by bindView(R.id.url_edtext)
-	private var presenter : DownloadActivityPresenter ?= null
+	private var presenter : DownloadActivityPresenter ? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
