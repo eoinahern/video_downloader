@@ -11,6 +11,4 @@ open  abstract public class BaseActivityModule<T : BaseActivity>(private var act
 
 	@Provides
 	public fun get() : T = activity
-
-
 }

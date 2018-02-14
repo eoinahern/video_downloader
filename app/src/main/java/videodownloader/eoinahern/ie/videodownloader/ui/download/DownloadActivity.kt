@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import kotterknife.bindView
+import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject
@@ -20,9 +21,10 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn : Button by bindView(R.id.download_btn)
 	private val urlTxt : EditText by bindView(R.id.url_edtext)
-	private var presenter : DownloadActivityPresenter ? = null
 
-	@Inject lateinit var sharedPrefs : SharedPreferences
+
+	private lateinit @Inject var presenter : DownloadActivityPresenter
+	private lateinit @Inject var sharedPrefs : SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -33,7 +35,8 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		sharedPrefs?.let {
 			Log.d("yay!", "injected!!!")
 		}
-		presenter = DownloadActivityPresenter()
+
+		presenter.downloadFile("www.hellothere.com")
 		//downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
 	}
 
@@ -52,6 +55,8 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	override fun inject() {
 		//inject dependencies
+		val myapp  = applicationContext as MyApp
+		myapp.getComponent().plus(DownloadActivityComponent.DownloadActivityModule(this)).Inject(this)
 	}
 
 
