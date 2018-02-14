@@ -1,6 +1,9 @@
 package videodownloader.eoinahern.ie.videodownloader.di.modules
 
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
 import videodownloader.eoinahern.ie.videodownloader.MyApp
@@ -12,6 +15,13 @@ class AppModule(var myApp : MyApp) {
 
 	@Singleton
 	@Provides
-	fun getContext()  = myApp
+	fun getContext() : Context  =  myApp
+
+
+	@Singleton
+	@Provides
+	fun getSharedPrefs(context : Context) : SharedPreferences {
+		return PreferenceManager.getDefaultSharedPreferences(context)
+	}
 
 }

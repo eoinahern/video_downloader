@@ -50,6 +50,8 @@ dependencies {
 
     //Dagger
     implementation "com.google.dagger:dagger-android:$DAGGER_VERSION"
+
+    //need dagger as the auto generated code is still going to be in java
     implementation  "com.google.dagger:dagger:$DAGGER_VERSION"
     //provided 'org.glassfish:javax.annotation:10.0-b28'
     provided 'javax.annotation:jsr250-api:1.0'

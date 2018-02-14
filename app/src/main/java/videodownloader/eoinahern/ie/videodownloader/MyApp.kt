@@ -24,6 +24,4 @@ class MyApp : Application() {
 	fun  getComponent() : AppComponent {
 		return appComponent
 	}
-
-
 }

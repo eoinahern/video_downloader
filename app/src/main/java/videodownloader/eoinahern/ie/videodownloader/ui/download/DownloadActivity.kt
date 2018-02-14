@@ -3,14 +3,17 @@ package videodownloader.eoinahern.ie.videodownloader.ui.download
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
+import javax.inject.Inject
 
 class DownloadActivity : BaseActivity(), DownloadView {
 
@@ -19,13 +22,19 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val urlTxt : EditText by bindView(R.id.url_edtext)
 	private var presenter : DownloadActivityPresenter ? = null
 
+	@Inject lateinit var sharedPrefs : SharedPreferences
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_download)
 		setUpActionBar()
 
+
+		if (sharedPrefs === null) {
+			Log.d("hello", "not initialized")
+		}
 		presenter = DownloadActivityPresenter()
-		downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
+		//downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
 	}
 
 	companion object {
@@ -42,7 +51,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 
 	override fun inject() {
-
+		//inject dependencies
 	}
 
 
