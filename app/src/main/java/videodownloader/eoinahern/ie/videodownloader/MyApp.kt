@@ -21,6 +21,9 @@ class MyApp : Application() {
 					.build()
 	}
 
+
+
+
 	fun  getComponent() : AppComponent {
 		return appComponent
 	}

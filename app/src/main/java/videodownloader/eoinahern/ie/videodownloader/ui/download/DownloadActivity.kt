@@ -30,8 +30,8 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		setUpActionBar()
 
 
-		if (sharedPrefs === null) {
-			Log.d("hello", "not initialized")
+		sharedPrefs?.let {
+			Log.d("yay!", "injected!!!")
 		}
 		presenter = DownloadActivityPresenter()
 		//downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
