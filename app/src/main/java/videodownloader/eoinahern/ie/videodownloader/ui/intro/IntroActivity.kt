@@ -20,7 +20,7 @@ class IntroActivity : BaseActivity(), IntroView {
 		startAnimation(this)
 	}
 
-	override fun inject() {
+	override fun activityInject() {
 		//not used here
 	}
 

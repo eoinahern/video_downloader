@@ -1,14 +1,21 @@
 package videodownloader.eoinahern.ie.videodownloader.di.modules
 
+import android.app.Activity
 import dagger.Module
 import dagger.Provides
+import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 
 
-
 @Module
-open  abstract public class BaseActivityModule<T : BaseActivity>(private var activity: T) {
+ abstract class BaseActivityModule<out T : BaseActivity>(private var activity: T) {
 
 	@Provides
-	public fun get() : T = activity
+	@PerScreen
+	fun activityT() : T = activity
+
+
+	@Provides
+	@PerScreen
+	fun activity() : Activity = activity
 }

@@ -7,8 +7,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		inject()
+		activityInject()
 	}
 
-	abstract fun inject()
+	abstract fun activityInject()
 }

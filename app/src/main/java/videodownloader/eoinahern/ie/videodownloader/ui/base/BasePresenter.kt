@@ -1,6 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.ui.base
 
-open class BasePresenter<V : BaseView>  : Presenter<V> {
+open class BasePresenter<V : BaseView> : Presenter<V> {
 
 	private var view : V ?= null
 

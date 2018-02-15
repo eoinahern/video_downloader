@@ -27,7 +27,7 @@ class MyApp : Application() {
 	}
 
 	companion object {
-		fun get(context: Context) = context.applicationContext as MyApp
+		fun get(context: Context) : MyApp = context.applicationContext as MyApp
 	}
 }
 

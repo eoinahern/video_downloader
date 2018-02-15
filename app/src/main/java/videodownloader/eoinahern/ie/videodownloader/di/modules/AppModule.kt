@@ -9,7 +9,6 @@ import dagger.Provides
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import javax.inject.Singleton
 
-@Singleton
 @Module
 class AppModule(var myApp : MyApp) {
 
@@ -18,8 +17,8 @@ class AppModule(var myApp : MyApp) {
 	fun getContext() : Context  =  myApp
 
 
-	@Singleton
 	@Provides
+	@Singleton
 	fun getSharedPrefs(context : Context) : SharedPreferences {
 		return PreferenceManager.getDefaultSharedPreferences(context)
 	}

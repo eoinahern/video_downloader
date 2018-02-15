@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-open abstract class BaseInteractor<T> {
+ abstract class BaseInteractor<T> {
 
 	private val disposables: CompositeDisposable = CompositeDisposable()
 
