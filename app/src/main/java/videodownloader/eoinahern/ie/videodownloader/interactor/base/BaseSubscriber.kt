@@ -4,7 +4,8 @@ import android.util.Log
 import io.reactivex.subscribers.DisposableSubscriber
 
 
-open  abstract class BaseSubscriber<T> : DisposableSubscriber<T>() {
+open abstract class BaseSubscriber<T> : DisposableSubscriber<T>() {
+
 
 	override  abstract fun onNext(t: T)
 
@@ -14,9 +15,9 @@ open  abstract class BaseSubscriber<T> : DisposableSubscriber<T>() {
 	}
 
 
-	 override fun onError(t: Throwable?) {
-		t?.printStackTrace()
-	 }
+	override fun onError(e: Throwable) {
+		e.printStackTrace()
+	}
 
 
 }

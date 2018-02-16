@@ -12,23 +12,26 @@ class DownloadActivityPresenter @Inject constructor(private var downloadInteract
 
 
 	fun downloadFile(url : String) {
-		Log.d("hip", url)
 
 		downloadInteractor.execute(object : BaseSubscriber<String> () {
 
 			override fun onNext(t: String) {
 				getView()?.hideLoading()
-				//update downloaded info
+				Log.d("string returned!!", t)
 			}
 
-			override fun onError(t : Throwable?)  {
-				super.onError(t)
+			override fun onError(e: Throwable) {
+				super.onError(e)
 				getView()?.hideLoading()
-				//show some error output
-
 			}
 
 
 		})
+	}
+
+
+	override fun detachView() {
+		super.detachView()
+		downloadInteractor.dispose()
 	}
 }

@@ -3,11 +3,9 @@ package videodownloader.eoinahern.ie.videodownloader.ui.download
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import kotterknife.bindView
@@ -21,19 +19,14 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn: Button by bindView(R.id.download_btn)
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
-
-
 	lateinit @Inject var presenter: DownloadActivityPresenter
-
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_download)
 		setUpActionBar()
 
-		presenter.downloadFile("www.hellothere.com")
-		//downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
-
+		presenter.attachView(this)
 	}
 
 	companion object {
@@ -48,11 +41,9 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		setSupportActionBar(toolbar)
 	}
 
-
 	override fun activityInject() {
 		(applicationContext as MyApp).getComponent().plus(DownloadActivityComponent.DownloadActivityModule(this)).inject(this)
 	}
-
 
 	override fun showLoading() {
 
@@ -60,5 +51,10 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	override fun hideLoading() {
 
+	}
+
+	override fun onDestroy() {
+		super.onDestroy()
+		presenter.detachView()
 	}
 }
