@@ -24,7 +24,6 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 
 	lateinit @Inject var presenter: DownloadActivityPresenter
-	lateinit @Inject var sharedPrefs: SharedPreferences
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,13 +31,9 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		setContentView(R.layout.activity_download)
 		setUpActionBar()
 
-
-		sharedPrefs.let {
-			Log.d("yay!", "injected!!!")
-		}
-
 		presenter.downloadFile("www.hellothere.com")
 		//downloadBtn.setOnClickListener { presenter?.downloadFile(urlTxt.text.toString())}
+
 	}
 
 	companion object {
