@@ -1,6 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.interactor.base
 
-import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,9 +22,9 @@ abstract class BaseInteractor<T> {
 
 	fun getIOScheduler(): Scheduler = Schedulers.io()
 
-	abstract fun buildObservable(): Flowable<T>
+	abstract fun buildObservable(): Observable<T>
 
-	public fun dispose() {
+	fun dispose() {
 		if (!disposables.isDisposed)
 			disposables.dispose()
 	}

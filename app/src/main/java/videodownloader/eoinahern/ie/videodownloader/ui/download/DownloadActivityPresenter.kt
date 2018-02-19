@@ -29,7 +29,6 @@ class DownloadActivityPresenter @Inject constructor(private var downloadInteract
 		})
 	}
 
-
 	override fun detachView() {
 		super.detachView()
 		downloadInteractor.dispose()
