@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 @PerScreen
 class DownloadInteractor @Inject constructor(private var sharedPrefs: SharedPreferences,
-											 private val reqHelper : RequestHelper) : BaseInteractor<String>() {
+											 private val reqHelper: RequestHelper) : BaseInteractor<String>() {
 
-	lateinit var url : String
+	lateinit var url: String
 
 
 	override fun buildObservable(): Observable<String> {

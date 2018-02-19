@@ -1,5 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.data
 
+import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,7 +38,8 @@ class RequestHelper @Inject constructor() {
 		var data  = ""
 		var httpurl : HttpUrl? = checkURLState(url)
 
-		if (httpurl === null || !checkURLScheme(httpurl)) {
+		if (httpurl === null) {
+			Log.d("error", "problem with schema!!")
 			return data
 		}
 
@@ -45,6 +47,7 @@ class RequestHelper @Inject constructor() {
 		var req : Request = Request.Builder().url(httpurl).build()
 
 		var resp = client.newCall(req).execute()
+
 		return resp.body()?.string()
 	}
 }
