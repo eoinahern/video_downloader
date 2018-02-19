@@ -19,8 +19,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn: Button by bindView(R.id.download_btn)
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
-	lateinit @Inject
-	var presenter: DownloadActivityPresenter
+	@Inject lateinit var presenter: DownloadActivityPresenter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -28,7 +27,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		setUpActionBar()
 
 		presenter.attachView(this)
-		downloadBtn.setOnClickListener { presenter.downloadFile("shite now hey") }
+		downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
 	}
 
 	companion object {
@@ -47,6 +46,9 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		(applicationContext as MyApp).getComponent().plus(DownloadActivityComponent.DownloadActivityModule(this)).inject(this)
 	}
 
+	/**
+	 *  need to show loading notification here.
+	 */
 	override fun showLoading() {
 
 	}
