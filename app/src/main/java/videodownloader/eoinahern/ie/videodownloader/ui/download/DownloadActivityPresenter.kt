@@ -13,6 +13,7 @@ class DownloadActivityPresenter @Inject constructor(private var downloadInteract
 
 	fun downloadFile(url : String) {
 
+		downloadInteractor.url = url
 		downloadInteractor.execute(object : BaseSubscriber<String> () {
 
 			override fun onNext(t: String) {

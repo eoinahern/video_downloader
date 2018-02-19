@@ -3,9 +3,10 @@ package videodownloader.eoinahern.ie.videodownloader.data
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import javax.inject.Inject
 
 
-class RequestHelper {
+class RequestHelper @Inject constructor() {
 
 	private val youtube: String = "www.youtube.com"
 	private val bitchute: String = "www.bitchute.com"
@@ -30,7 +31,6 @@ class RequestHelper {
 			else -> false
 		}
 	}
-
 
 	fun getPageSource(url: String): String? {
 
