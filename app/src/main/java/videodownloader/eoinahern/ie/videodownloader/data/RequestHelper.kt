@@ -40,7 +40,6 @@ class RequestHelper @Inject constructor() {
 		var httpurl : HttpUrl? = checkURLState(url)
 
 		if (httpurl === null) {
-			Log.d("error", "problem with schema!!")
 			return data
 		}
 

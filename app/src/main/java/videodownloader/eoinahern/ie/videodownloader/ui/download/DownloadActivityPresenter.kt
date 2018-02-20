@@ -1,5 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.ui.download
 
+import android.accounts.NetworkErrorException
 import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseSubscriber
@@ -8,23 +9,27 @@ import videodownloader.eoinahern.ie.videodownloader.ui.base.BasePresenter
 import javax.inject.Inject
 
 @PerScreen
-class DownloadActivityPresenter @Inject constructor(private var downloadInteractor : DownloadInteractor) : BasePresenter<DownloadView>() {
+class DownloadActivityPresenter @Inject constructor(private var downloadInteractor: DownloadInteractor) : BasePresenter<DownloadView>() {
 
 
-	fun downloadFile(url : String) {
+	fun downloadFile(url: String) {
 
 		downloadInteractor.url = url
-		downloadInteractor.execute(object : BaseSubscriber<String> () {
+		downloadInteractor.execute(object : BaseSubscriber<String>() {
 
 			override fun onNext(t: String) {
-				getView()?.hideLoading()
-				Log.d("string returned!!", t)
+
+				if (t.isEmpty()) {
+					getView()?.showError()
+					return
+				}
+
 				getView()?.showStarted()
 			}
 
 			override fun onError(e: Throwable) {
 				super.onError(e)
-				getView()?.hideLoading()
+					getView()?.showError()
 			}
 
 

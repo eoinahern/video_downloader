@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.widget.Button
 import android.widget.EditText
+import com.afollestad.materialdialogs.MaterialDialog
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
@@ -21,9 +22,10 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn: Button by bindView(R.id.download_btn)
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
-	private val constriant : ConstraintLayout by bindView(R.id.constraint)
-	private lateinit var snackbar :Snackbar
-	@Inject lateinit var presenter: DownloadActivityPresenter
+	private val constriant: ConstraintLayout by bindView(R.id.constraint)
+	private lateinit var snackbar: Snackbar
+	@Inject
+	lateinit var presenter: DownloadActivityPresenter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -61,8 +63,18 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	}
 
-	override fun showError(message: String) {
+	override fun showError() {
 
+		MaterialDialog.Builder(this)
+				.title(R.string.error)
+				.titleColorRes(R.color.colorPrimaryDark)
+				.content(R.string.unrecogised_url)
+				.negativeText(R.string.cancel)
+				.negativeColorRes(R.color.colorPrimaryDark)
+				.onNegative { dialog, _ -> dialog.dismiss() }
+				.show()
+
+		urlTxt.text.clear()
 	}
 
 	override fun showStarted() {
