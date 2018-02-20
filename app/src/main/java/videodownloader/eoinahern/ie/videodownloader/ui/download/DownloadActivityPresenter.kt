@@ -19,6 +19,7 @@ class DownloadActivityPresenter @Inject constructor(private var downloadInteract
 			override fun onNext(t: String) {
 				getView()?.hideLoading()
 				Log.d("string returned!!", t)
+				getView()?.showStarted()
 			}
 
 			override fun onError(e: Throwable) {

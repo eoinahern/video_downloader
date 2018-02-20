@@ -1,4 +1,7 @@
 <resources>
 	<string name="app_name">VideoDownloader</string>
 	<string name="download_name">Download</string>
+	<string name="cancel">Cancel</string>
+	<string name="loading_started">Loading started!</string>
+	<string name="unrecogised_url">Unrecognised URL!</string>
 </resources>

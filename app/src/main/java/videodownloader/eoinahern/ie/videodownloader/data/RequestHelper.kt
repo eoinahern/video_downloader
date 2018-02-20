@@ -4,9 +4,10 @@ import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import javax.inject.Inject
 
-
+@PerScreen
 class RequestHelper @Inject constructor() {
 
 	private val youtube: String = "www.youtube.com"

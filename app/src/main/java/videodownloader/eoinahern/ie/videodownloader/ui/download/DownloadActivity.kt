@@ -4,6 +4,8 @@ package videodownloader.eoinahern.ie.videodownloader.ui.download
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.widget.Button
@@ -19,6 +21,8 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val toolbar: Toolbar by bindView(R.id.toolbar)
 	private val downloadBtn: Button by bindView(R.id.download_btn)
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
+	private val constriant : ConstraintLayout by bindView(R.id.constraint)
+	private lateinit var snackbar :Snackbar
 	@Inject lateinit var presenter: DownloadActivityPresenter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +59,16 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	override fun hideLoading() {
 
+	}
+
+	override fun showError(message: String) {
+
+	}
+
+	override fun showStarted() {
+		snackbar = Snackbar.make(constriant, R.string.loading_started, Snackbar.LENGTH_LONG)
+		snackbar.show()
+		urlTxt.text.clear()
 	}
 
 	override fun onDestroy() {
