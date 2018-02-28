@@ -1,6 +1,5 @@
 package videodownloader.eoinahern.ie.videodownloader.data
 
-import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -18,7 +17,7 @@ class RequestHelper @Inject constructor() {
 	 * checks if i have a legit URL
 	 */
 
-	private fun checkURLState(url: String): HttpUrl?  = HttpUrl.parse(url)
+	private fun checkURLState(url: String): HttpUrl? = HttpUrl.parse(url)
 
 	/**
 	 * check URL scheme
@@ -34,17 +33,26 @@ class RequestHelper @Inject constructor() {
 		}
 	}
 
+	/**
+	 * return the scheme. used to decipher
+	 * which parser is required
+	 */
+
+	fun getScheme(httpurl: HttpUrl): String {
+		return httpurl.scheme()
+	}
+
 	fun getPageSource(url: String): String? {
 
-		var data  = ""
-		var httpurl : HttpUrl? = checkURLState(url)
+		var data = ""
+		var httpurl: HttpUrl? = checkURLState(url)
 
 		if (httpurl === null) {
 			return data
 		}
 
 		var client = OkHttpClient()
-		var req : Request = Request.Builder().url(httpurl).build()
+		var req: Request = Request.Builder().url(httpurl).build()
 
 		var resp = client.newCall(req).execute()
 

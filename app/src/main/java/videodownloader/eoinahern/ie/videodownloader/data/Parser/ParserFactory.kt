@@ -1,9 +1,12 @@
 package videodownloader.eoinahern.ie.videodownloader.data.Parser
 
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.BitchuteParser
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.VimeoParser
+import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
+import javax.inject.Inject
 
-
-object ParserFactory  {
+@PerScreen
+class ParserFactory @Inject constructor()  {
 
 	/**
 	 * depending on page source return specific parser.
@@ -11,8 +14,7 @@ object ParserFactory  {
 	 */
 
 	fun getParser(pageSource : String)  : Parser{
-
-		return VimeoParser
+		return BitchuteParser
 	}
 
 
