@@ -24,8 +24,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
 	private val constriant: ConstraintLayout by bindView(R.id.constraint)
 	private lateinit var snackbar: Snackbar
-	@Inject
-	lateinit var presenter: DownloadActivityPresenter
+	@Inject lateinit var presenter: DownloadActivityPresenter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -78,6 +77,8 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	}
 
 	override fun showStarted() {
+
+
 		snackbar = Snackbar.make(constriant, R.string.loading_started, Snackbar.LENGTH_LONG)
 		snackbar.show()
 		urlTxt.text.clear()

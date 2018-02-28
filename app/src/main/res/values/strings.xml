@@ -5,4 +5,6 @@
 	<string name="error">Error!</string>
 	<string name="loading_started">Loading started!</string>
 	<string name="unrecogised_url">Unrecognised URL? Please try again!</string>
+	<string name="vimeo_url"></string>
+	<string name="bitchute_url"></string>
 </resources>
