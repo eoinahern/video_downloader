@@ -1,25 +1,24 @@
 package videodownloader.eoinahern.ie.videodownloader.ui.download
 
-
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.afollestad.materialdialogs.MaterialDialog
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
+import videodownloader.eoinahern.ie.videodownloader.tools.NOTIFID
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject
+
 
 class DownloadActivity : BaseActivity(), DownloadView {
 
@@ -31,7 +30,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	@Inject
 	lateinit var presenter: DownloadActivityPresenter
 	@Inject
-	lateinit var notificationManager: NotificationManagerCompat
+	lateinit var notificationManager: NotificationManager
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -87,17 +86,11 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	/**
 	 * build a notification
 	 */
-	private fun buildNotification(): NotificationCompat.Builder {
-
-
-		var builder = NotificationCompat.Builder(this)
-				.setSmallIcon(R.id.icon)
+	private fun buildNotification(): NotificationCompat.Builder = NotificationCompat.Builder(this, "id")
+				.setSmallIcon(R.drawable.ic_download_dark)
 				.setContentTitle("fuck")
 				.setContentText("fuckoff")
 
-		return builder
-
-	}
 
 	override fun showStarted() {
 
@@ -105,7 +98,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		snackbar.show()
 		urlTxt.text.clear()
 
-		notificationManager.notify(1, buildNotification().build())
+		notificationManager.notify(NOTIFID, buildNotification().build())
 	}
 
 	override fun onDestroy() {

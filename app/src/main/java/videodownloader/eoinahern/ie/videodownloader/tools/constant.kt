@@ -23,3 +23,6 @@ const val link_tag = "a"
 
 //attr
 const val src_attr = "src"
+
+//notification
+const val NOTIFID = 2

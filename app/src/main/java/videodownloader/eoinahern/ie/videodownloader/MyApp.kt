@@ -8,7 +8,7 @@ import videodownloader.eoinahern.ie.videodownloader.di.modules.AppModule
 
 class MyApp : Application() {
 
-	lateinit private var appComponent: AppComponent
+	private lateinit var  appComponent: AppComponent
 
 	override fun onCreate() {
 		super.onCreate()
