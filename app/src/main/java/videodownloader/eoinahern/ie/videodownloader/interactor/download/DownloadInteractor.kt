@@ -1,7 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.interactor.download
 
 import io.reactivex.Observable
-import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserFactory
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
@@ -9,8 +8,7 @@ import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteract
 import javax.inject.Inject
 
 @PerScreen
-class DownloadInteractor @Inject constructor(private val reqHelper: RequestHelper,
-											 private val parserFactory : ParserFactory) : BaseInteractor<String>() {
+class DownloadInteractor @Inject constructor(private val reqHelper: RequestHelper) : BaseInteractor<String>() {
 
 	lateinit var url: String
 
@@ -23,7 +21,6 @@ class DownloadInteractor @Inject constructor(private val reqHelper: RequestHelpe
 			//3. select parser.
 			//4. find video file url!
 
-			  val parser = parserFactory.getParser(url)
 			  val stuff : String? = reqHelper.getPageSource(url)
 			 stuff
 		}

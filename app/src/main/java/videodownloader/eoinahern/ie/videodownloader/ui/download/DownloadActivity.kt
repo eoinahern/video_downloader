@@ -3,11 +3,13 @@ package videodownloader.eoinahern.ie.videodownloader.ui.download
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.afollestad.materialdialogs.MaterialDialog
@@ -25,6 +27,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val constriant: ConstraintLayout by bindView(R.id.constraint)
 	private lateinit var snackbar: Snackbar
 	@Inject lateinit var presenter: DownloadActivityPresenter
+	@Inject lateinit var sharedPrefs : SharedPreferences
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

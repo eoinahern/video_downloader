@@ -6,7 +6,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(KotlinTestRunner::class)
- class BitchuteParserTest {
+ class HtmlParserTest {
 
 	private val url: String = "www.google.com/5yryeywj.mp4"
 
@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 	@Test
 	fun searchTest() {
 
-		var link = BitchuteParser.search(getHtmlString())
+		var link = HtmlParser.search(getHtmlString())
 		Assert.assertEquals(url, link)
 	}
 

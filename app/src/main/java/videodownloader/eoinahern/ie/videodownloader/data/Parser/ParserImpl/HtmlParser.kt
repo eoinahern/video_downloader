@@ -2,22 +2,21 @@ package videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl
 
 
 import org.jsoup.Jsoup
-import videodownloader.eoinahern.ie.videodownloader.data.Parser.Parser
+import javax.inject.Inject
 
-object BitchuteParser : Parser {
+object HtmlParser  : Parser  {
 
-	private val tag: String = "source"
-
-	override fun search(pageData: String): String {
+	override fun search(pageData: String, tag: String,
+						attr: String, suffix: String): String {
 
 		var doc = Jsoup.parse(pageData)
 		println(doc.body())
 		var sourceElement = doc.body().getElementsByTag(tag)
 
 		for (item in sourceElement) {
-			var link = item.attr("src")
+			var link = item.attr(attr)
 
-			if (link.endsWith(".mp4")) {
+			if (link.endsWith(suffix)) {
 				println(link)
 				return link
 			}

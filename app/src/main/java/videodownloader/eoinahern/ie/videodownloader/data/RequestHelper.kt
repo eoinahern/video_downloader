@@ -12,6 +12,7 @@ class RequestHelper @Inject constructor() {
 	private val youtube: String = "www.youtube.com"
 	private val bitchute: String = "www.bitchute.com"
 	private val vimeo: String = "www.vimeo.com"
+	private val daily_motion: String = "www.dailymotion.com"
 
 	/**
 	 * checks if i have a legit URL
@@ -28,7 +29,7 @@ class RequestHelper @Inject constructor() {
 		val scheme = httpUrl.scheme()
 
 		return when (scheme) {
-			youtube, vimeo, bitchute -> true
+			youtube, vimeo, bitchute, daily_motion -> true
 			else -> false
 		}
 	}
@@ -41,6 +42,10 @@ class RequestHelper @Inject constructor() {
 	fun getScheme(httpurl: HttpUrl): String {
 		return httpurl.scheme()
 	}
+
+	/**
+	 * return string of html page source
+	 */
 
 	fun getPageSource(url: String): String? {
 
