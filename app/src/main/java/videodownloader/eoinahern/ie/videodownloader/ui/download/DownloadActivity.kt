@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -26,8 +28,10 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private val urlTxt: EditText by bindView(R.id.url_edtext)
 	private val constriant: ConstraintLayout by bindView(R.id.constraint)
 	private lateinit var snackbar: Snackbar
-	@Inject lateinit var presenter: DownloadActivityPresenter
-	@Inject lateinit var sharedPrefs : SharedPreferences
+	@Inject
+	lateinit var presenter: DownloadActivityPresenter
+	@Inject
+	lateinit var notificationManager: NotificationManagerCompat
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -77,14 +81,31 @@ class DownloadActivity : BaseActivity(), DownloadView {
 				.show()
 
 		urlTxt.text.clear()
+
+	}
+
+	/**
+	 * build a notification
+	 */
+	private fun buildNotification(): NotificationCompat.Builder {
+
+
+		var builder = NotificationCompat.Builder(this)
+				.setSmallIcon(R.id.icon)
+				.setContentTitle("fuck")
+				.setContentText("fuckoff")
+
+		return builder
+
 	}
 
 	override fun showStarted() {
 
-
 		snackbar = Snackbar.make(constriant, R.string.loading_started, Snackbar.LENGTH_LONG)
 		snackbar.show()
 		urlTxt.text.clear()
+
+		notificationManager.notify(1, buildNotification().build())
 	}
 
 	override fun onDestroy() {

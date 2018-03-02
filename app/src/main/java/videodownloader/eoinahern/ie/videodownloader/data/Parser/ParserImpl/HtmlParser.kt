@@ -2,7 +2,6 @@ package videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl
 
 
 import org.jsoup.Jsoup
-import javax.inject.Inject
 
 object HtmlParser  : Parser  {
 
