@@ -15,7 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
-import videodownloader.eoinahern.ie.videodownloader.data.service.DownloadService
+import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadService
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject

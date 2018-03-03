@@ -1,4 +1,4 @@
-package videodownloader.eoinahern.ie.videodownloader.data.service
+package videodownloader.eoinahern.ie.videodownloader.platform.download
 
 import android.app.NotificationManager
 import android.app.Service
