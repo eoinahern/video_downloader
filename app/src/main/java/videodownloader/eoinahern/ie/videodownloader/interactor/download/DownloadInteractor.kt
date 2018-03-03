@@ -1,6 +1,8 @@
 package videodownloader.eoinahern.ie.videodownloader.interactor.download
 
+import android.util.Log
 import io.reactivex.Observable
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.HtmlParser
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
@@ -21,8 +23,8 @@ class DownloadInteractor @Inject constructor(private val reqHelper: RequestHelpe
 			//3. select parser.
 			//4. find video file url!
 
-			  val stuff : String? = reqHelper.getPageSource(url)
-			 stuff
+			  val htmlStr : String? = reqHelper.getPageSource(url)
+			HtmlParser.search(htmlStr)
 		}
 	}
 

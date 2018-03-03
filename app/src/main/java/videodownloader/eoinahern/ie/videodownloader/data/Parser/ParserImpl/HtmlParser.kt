@@ -1,11 +1,10 @@
 package videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl
 
-
 import org.jsoup.Jsoup
 
 object HtmlParser : Parser {
 
-	override fun search(pageData: String, tag: String,
+	override fun search(pageData: String?, tag: String,
 						attr: String, suffix: String): String {
 
 		var doc = Jsoup.parse(pageData)
@@ -23,5 +22,4 @@ object HtmlParser : Parser {
 
 		return ""
 	}
-
 }

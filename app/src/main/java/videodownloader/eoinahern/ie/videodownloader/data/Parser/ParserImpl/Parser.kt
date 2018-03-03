@@ -6,6 +6,6 @@ import videodownloader.eoinahern.ie.videodownloader.tools.src_attr
 
 
 interface Parser {
-	fun search(pageData: String, tag: String = source_tag, attr: String = src_attr,
+	fun search(pageData: String?, tag: String = source_tag, attr: String = src_attr,
 			   suffix: String = mp4_suffix): String
 }

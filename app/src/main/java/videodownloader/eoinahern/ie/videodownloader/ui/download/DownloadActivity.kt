@@ -15,7 +15,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
-import videodownloader.eoinahern.ie.videodownloader.tools.NOTIFID
+import videodownloader.eoinahern.ie.videodownloader.data.service.DownloadService
+import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject
 
@@ -31,6 +32,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	lateinit var presenter: DownloadActivityPresenter
 	@Inject
 	lateinit var notificationManager: NotificationManager
+	private var notifyID: Int = 0
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -39,6 +41,9 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 		presenter.attachView(this)
 		downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
+
+		var intent  = Intent(this, DownloadService::class.java)
+		startService(intent)
 	}
 
 	companion object {
@@ -55,17 +60,6 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	override fun activityInject() {
 		(applicationContext as MyApp).getComponent().plus(DownloadActivityComponent.DownloadActivityModule(this)).inject(this)
-	}
-
-	/**
-	 *  need to show loading notification here.
-	 */
-	override fun showLoading() {
-
-	}
-
-	override fun hideLoading() {
-
 	}
 
 	override fun showError() {
@@ -86,10 +80,10 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	/**
 	 * build a notification
 	 */
-	private fun buildNotification(): NotificationCompat.Builder = NotificationCompat.Builder(this, "id")
-				.setSmallIcon(R.drawable.ic_download_dark)
-				.setContentTitle("fuck")
-				.setContentText("fuckoff")
+	private fun buildNotification(): NotificationCompat.Builder = NotificationCompat.Builder(this, channel_id)
+			.setSmallIcon(R.drawable.ic_download_dark)
+			.setContentTitle(getString(R.string.notification_title))
+			.setContentText(getString(R.string.notification_txt))
 
 
 	override fun showStarted() {
@@ -98,7 +92,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		snackbar.show()
 		urlTxt.text.clear()
 
-		notificationManager.notify(NOTIFID, buildNotification().build())
+		notificationManager.notify(notifyID++, buildNotification().build())
 	}
 
 	override fun onDestroy() {

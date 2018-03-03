@@ -6,6 +6,6 @@
 	<string name="error">Error!</string>
 	<string name="loading_started">Loading started!</string>
 	<string name="unrecogised_url">Unrecognised URL? Please try again!</string>
-	<string name="notification">Notification!</string>
+	<string name="notification_title">Download started!</string>
 	<string name="notification_txt">Hello its downloading yipee!</string>
 </resources>

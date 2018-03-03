@@ -24,5 +24,6 @@ const val link_tag = "a"
 //attr
 const val src_attr = "src"
 
-//notification
-const val NOTIFID = 2
+
+//notification channel id
+const val channel_id = "download_channel"
