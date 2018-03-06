@@ -10,8 +10,9 @@ import javax.inject.Inject
 
 class DownloadController @Inject constructor(val backgroundDownloadInteractor : BackgroundDownloadInteractor) {
 
+	fun downloadFile() {
 
-
+	}
 
 
 
