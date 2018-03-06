@@ -13,7 +13,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
 
-		<service android:name=".platform.download.DownloadService"
+		<service android:name=".platform.download.service.DownloadService"
 			android:exported="false"/>
 
 		<activity android:name=".ui.download.DownloadActivity" >
