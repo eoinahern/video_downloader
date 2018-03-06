@@ -3,6 +3,7 @@ package videodownloader.eoinahern.ie.videodownloader.ui.download
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
@@ -42,8 +43,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		presenter.attachView(this)
 		downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
 
-		var intent  = Intent(this, DownloadService::class.java)
-		startService(intent)
+		startDownloadService()
 	}
 
 	companion object {
@@ -93,6 +93,18 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		urlTxt.text.clear()
 
 		notificationManager.notify(notifyID++, buildNotification().build())
+
+	}
+
+	private fun startDownloadService() {
+
+		var intent  = Intent(this, DownloadService::class.java)
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			startForegroundService(intent)
+		} else {
+			startService(intent)
+		}
 
 	}
 
