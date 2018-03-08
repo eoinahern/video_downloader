@@ -8,7 +8,7 @@ import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import javax.inject.Inject
 
 @PerScreen
-class RequestHelper @Inject constructor() {
+class RequestHelper @Inject constructor(val client : OkHttpClient) {
 
 	private val youtube: String = "www.youtube.com"
 	private val bitchute: String = "www.bitchute.com"
@@ -55,13 +55,10 @@ class RequestHelper @Inject constructor() {
 
 		return httpurl?.let {
 
-			var client = OkHttpClient()
 			var req: Request = Request.Builder().url(httpurl).build()
 
 			var resp = client.newCall(req).execute()
 			resp.body()?.string()
 		}
-
-
 	}
 }

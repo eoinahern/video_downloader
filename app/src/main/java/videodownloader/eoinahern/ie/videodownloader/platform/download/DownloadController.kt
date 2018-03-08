@@ -11,6 +11,8 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor : 
 		backgroundDownloadInteractor.execute(object : BaseSubscriber<Boolean>() {
 
 			override fun onNext(t: Boolean) {
+
+
 			}
 
 

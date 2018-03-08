@@ -22,7 +22,8 @@ import javax.inject.Inject
 class DownloadService : Service() {
 
 	private var notifid: Int = 1
-	private lateinit var notifManager: NotificationManager
+	@Inject
+	lateinit var notifManager: NotificationManager
 	@Inject
 	lateinit var downloadController: DownloadController
 
@@ -37,7 +38,6 @@ class DownloadService : Service() {
 
 	override fun onCreate() {
 		(applicationContext as MyApp).getComponent().plus(DownloadServiceComponent.DownloadServiceModule(this)).inject(this)
-		notifManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 	}
 
 
@@ -63,11 +63,13 @@ class DownloadService : Service() {
 			Notification.Builder(this, id)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(getString(R.string.notification_title))
+					.setProgress(100,0, false)
 					.setContentText(getString(R.string.notification_txt)).build()
 		} else {
 			NotificationCompat.Builder(this, id)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(getString(R.string.notification_title))
+					.setProgress(100,0, false)
 					.setContentText(getString(R.string.notification_txt)).build()
 		}
 	}

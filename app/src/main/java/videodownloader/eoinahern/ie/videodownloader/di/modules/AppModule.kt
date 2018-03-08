@@ -8,6 +8,7 @@ import android.preference.PreferenceManager
 import android.support.v4.app.NotificationManagerCompat
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import javax.inject.Singleton
 
@@ -30,4 +31,11 @@ class AppModule(var myApp : MyApp) {
 	fun getNotificationManager(context : Context) : NotificationManager {
 		return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 	}
+
+	@Provides
+	@Singleton
+	fun getClient() :OkHttpClient {
+		return OkHttpClient()
+	}
+
 }
