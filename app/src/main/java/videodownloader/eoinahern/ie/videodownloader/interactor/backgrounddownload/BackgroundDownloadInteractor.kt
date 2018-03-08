@@ -2,11 +2,14 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import videodownloader.eoinahern.ie.videodownloader.data.FileHelper
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
 import javax.inject.Inject
 
 
-class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient) : BaseInteractor<Boolean>() {
+class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient,
+													   val fileHelper : FileHelper) : BaseInteractor<Boolean>() {
 
 
 	lateinit var  fileLocation : String
@@ -25,8 +28,16 @@ class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient
 			//return true
 
 
+			var resp = client.newCall(createRequest()).execute()
+
+
+
+
 
 			true
 		}
 	}
+
+	private fun createRequest() : Request = Request.Builder().url(fileLocation).build()
+
 }

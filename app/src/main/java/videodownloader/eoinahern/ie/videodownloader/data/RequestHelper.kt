@@ -5,15 +5,13 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
+import videodownloader.eoinahern.ie.videodownloader.tools.bitchute_url
+import videodownloader.eoinahern.ie.videodownloader.tools.dailymotion_url
+import videodownloader.eoinahern.ie.videodownloader.tools.vimeo_url
 import javax.inject.Inject
 
 @PerScreen
 class RequestHelper @Inject constructor(val client : OkHttpClient) {
-
-	private val youtube: String = "www.youtube.com"
-	private val bitchute: String = "www.bitchute.com"
-	private val vimeo: String = "www.vimeo.com"
-	private val daily_motion: String = "www.dailymotion.com"
 
 	/**
 	 * checks if i have a legit URL
@@ -30,7 +28,7 @@ class RequestHelper @Inject constructor(val client : OkHttpClient) {
 		val scheme = httpUrl.scheme()
 
 		return when (scheme) {
-			youtube, vimeo, bitchute, daily_motion -> true
+			vimeo_url, bitchute_url, dailymotion_url -> true
 			else -> false
 		}
 	}
