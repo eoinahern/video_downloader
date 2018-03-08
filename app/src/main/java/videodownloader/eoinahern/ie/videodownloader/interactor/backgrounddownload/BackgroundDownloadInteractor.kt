@@ -1,5 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownload
 
+import android.app.NotificationManager
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -8,11 +9,12 @@ import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteract
 import javax.inject.Inject
 
 
-class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient,
-													   val fileHelper : FileHelper) : BaseInteractor<Boolean>() {
+class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
+													   val fileHelper: FileHelper,
+													   val notifManager: NotificationManager) : BaseInteractor<Boolean>() {
 
 
-	lateinit var  fileLocation : String
+	lateinit var fileLocation: String
 
 	/**
 	 * observable that downloads file
@@ -27,8 +29,10 @@ class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient
 			//save file
 			//return true
 
+			/*if(!fileHelper.checkEnoughSpace())
+				println("boo")
 
-			var resp = client.newCall(createRequest()).execute()
+			var resp = client.newCall(createRequest()).execute()*/
 
 
 
@@ -38,6 +42,6 @@ class BackgroundDownloadInteractor @Inject constructor(val client : OkHttpClient
 		}
 	}
 
-	private fun createRequest() : Request = Request.Builder().url(fileLocation).build()
+	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()
 
 }

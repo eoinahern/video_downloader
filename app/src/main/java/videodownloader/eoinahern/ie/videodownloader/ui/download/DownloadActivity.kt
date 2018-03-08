@@ -16,7 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
-import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadService
+import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadServiceImp
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject
@@ -98,7 +98,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	private fun startDownloadService() {
 
-		var intent  = Intent(this, DownloadService::class.java)
+		var intent  = Intent(this, DownloadServiceImp::class.java)
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			startForegroundService(intent)
