@@ -42,8 +42,6 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 		presenter.attachView(this)
 		downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
-
-		startDownloadService()
 	}
 
 	companion object {
@@ -86,19 +84,21 @@ class DownloadActivity : BaseActivity(), DownloadView {
 			.setContentText(getString(R.string.notification_txt))
 
 
-	override fun showStarted() {
+	override fun showStarted(location : String) {
 
 		snackbar = Snackbar.make(constriant, R.string.loading_started, Snackbar.LENGTH_LONG)
 		snackbar.show()
 		urlTxt.text.clear()
 
 		notificationManager.notify(notifyID++, buildNotification().build())
+		startDownloadService(location)
 
 	}
 
-	private fun startDownloadService() {
+	private fun startDownloadService(location : String) {
 
 		var intent  = Intent(this, DownloadServiceImp::class.java)
+		intent.putExtra("locaion", location)
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			startForegroundService(intent)

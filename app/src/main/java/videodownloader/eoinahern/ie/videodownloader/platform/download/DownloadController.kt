@@ -10,9 +10,9 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 
 	private lateinit var service: DownloadService
 
-	fun downloadFile() {
+	fun downloadFile(location: String?) {
 
-		backgroundDownloadInteractor.execute(object : BaseSubscriber<Boolean>() {
+		backgroundDownloadInteractor.init(location).execute(object : BaseSubscriber<Boolean>() {
 
 			override fun onNext(t: Boolean) {
 				serviceStop()

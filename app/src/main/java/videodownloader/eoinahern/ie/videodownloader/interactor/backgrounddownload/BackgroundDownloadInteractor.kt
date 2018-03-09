@@ -2,6 +2,7 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 import android.app.NotificationManager
 import android.content.Context
+import android.util.Log
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -19,6 +20,17 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val context: Context) : BaseInteractor<Boolean>() {
 
 	lateinit var fileLocation: String
+
+	fun init(location : String?) : BackgroundDownloadInteractor {
+
+	if (location !== null) {
+		fileLocation = location
+		return this
+
+	}
+		fileLocation = ""
+		return this
+	}
 
 	/**
 	 * observable that downloads file
@@ -41,11 +53,15 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 				val resp = client.newCall(createRequest()).execute()
 				buffSource = resp.body()?.source()
 
+
+				if (buffSource == null) {
+					Log.d("source", "no buff source on resp")
+				}
+
 				while (buffSource?.exhausted() != false) {
 					var bytesread = buffSource?.read(buffer, 1000)
 
 					bufferedSink.emit()
-
 
 					bytesread?.let {
 						totalBytesRead += it

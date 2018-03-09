@@ -5,5 +5,5 @@ import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseView
 interface DownloadView : BaseView {
 
 	fun showError()
-	fun showStarted()
+	fun showStarted(location : String)
 }

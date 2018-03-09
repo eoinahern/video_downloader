@@ -36,10 +36,11 @@ class DownloadServiceImp : Service(), DownloadService {
 	}
 
 	override fun onCreate() {
+
 		(applicationContext as MyApp).getComponent().plus(DownloadServiceComponent.DownloadServiceModule(this)).inject(this)
 		downloadController.setService(this)
-	}
 
+	}
 
 	override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 		Log.d("service started", "service started")
@@ -48,8 +49,12 @@ class DownloadServiceImp : Service(), DownloadService {
 			createChannel()
 		}
 
+		var location : String? = intent?.getStringExtra("location")
+
+
 		var notif = createNotification()
-		downloadController.downloadFile()
+		downloadController.downloadFile(location)
+		location?.let{ it}
 		startForeground(notifid++, notif)
 
 		return Service.START_STICKY
