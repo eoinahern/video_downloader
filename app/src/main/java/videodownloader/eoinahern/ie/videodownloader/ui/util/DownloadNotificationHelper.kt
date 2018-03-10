@@ -24,7 +24,6 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	@RequiresApi(Build.VERSION_CODES.O)
 	fun createChannel(channelID: String = channel_id) {
-
 		var notificationChannel = notifyManager.getNotificationChannel(channelID)
 
 		if (notificationChannel == null) {
@@ -37,7 +36,6 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 	}
 
 	fun createNotification(channelID: String = channel_id): Notification {
-
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			Notification.Builder(context, channelID)
 					.setSmallIcon(R.drawable.ic_download_dark)
@@ -61,7 +59,17 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	}
 
-	fun updateNotificationProgress(id: Int, amountDone : Int, totalAmount: Int) {
+	fun updateNotificationProgress(id: Int, amountDone: Int, totalAmount: Int) {
+		var stuff = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			Notification.Builder(context, channel_id)
+					.setProgress(totalAmount, amountDone, false).build()
+
+		} else {
+			NotificationCompat.Builder(context, channel_id)
+					.setProgress(totalAmount, amountDone, false).build()
+		}
+
+		notifyManager.notify(id, stuff)
 
 	}
 
