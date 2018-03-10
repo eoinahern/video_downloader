@@ -61,7 +61,7 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	}
 
-	fun updateNotificationProgress(id: String, amountDone : Int, totalAmount: Int) {
+	fun updateNotificationProgress(id: Int, amountDone : Int, totalAmount: Int) {
 
 	}
 

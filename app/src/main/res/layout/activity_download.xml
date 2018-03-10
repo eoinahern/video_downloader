@@ -25,7 +25,7 @@
 		android:layout_marginRight="20dp"
 		android:ellipsize="end"
 		android:gravity="center_vertical"
-		android:hint="enter url..."
+		android:hint="@string/url_hint"
 		android:inputType="text"
 		android:lines="1"
 		android:maxLines="1"

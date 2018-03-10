@@ -18,6 +18,7 @@ import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadServiceImp
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
+import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
 import javax.inject.Inject
 
@@ -72,7 +73,6 @@ class DownloadActivity : BaseActivity(), DownloadView {
 				.show()
 
 		urlTxt.text.clear()
-
 	}
 
 	/**
@@ -84,7 +84,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 			.setContentText(getString(R.string.notification_txt))
 
 
-	override fun showStarted(location : String) {
+	override fun showStarted(location: String) {
 
 		snackbar = Snackbar.make(constriant, R.string.loading_started, Snackbar.LENGTH_LONG)
 		snackbar.show()
@@ -95,17 +95,16 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	}
 
-	private fun startDownloadService(location : String) {
+	private fun startDownloadService(location: String) {
 
-		var intent  = Intent(this, DownloadServiceImp::class.java)
-		intent.putExtra("locaion", location)
+		var intent = Intent(this, DownloadServiceImp::class.java)
+		intent.putExtra(location_intent_title, location)
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			startForegroundService(intent)
 		} else {
 			startService(intent)
 		}
-
 	}
 
 	override fun onDestroy() {

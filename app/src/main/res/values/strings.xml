@@ -8,4 +8,5 @@
 	<string name="unrecogised_url">Unrecognised URL? Please try again!</string>
 	<string name="notification_title">Download started!</string>
 	<string name="notification_txt">Hello its downloading yipee!</string>
+	<string name="url_hint">enter url http://...</string>
 </resources>

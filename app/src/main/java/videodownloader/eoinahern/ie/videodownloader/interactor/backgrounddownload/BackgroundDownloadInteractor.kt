@@ -1,6 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownload
 
-import android.app.NotificationManager
+
 import android.content.Context
 import android.util.Log
 import io.reactivex.Observable
@@ -17,13 +17,13 @@ import javax.inject.Inject
 
 class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val fileHelper: FileHelper,
-													   val downloadNotificationHelper : DownloadNotificationHelper,
+													   val downloadNotificationHelper: DownloadNotificationHelper,
 													   val context: Context) : BaseInteractor<Boolean>() {
 
 	private lateinit var fileLocation: String
-	private lateinit var notificationID : String
+	private var notificationID: Int = -1
 
-	fun init(location: String, notificationID: String): BackgroundDownloadInteractor {
+	fun init(location: String, notificationID: Int): BackgroundDownloadInteractor {
 		fileLocation = location
 		this.notificationID = notificationID
 		return this
@@ -39,7 +39,7 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	override fun buildObservable(): Observable<Boolean> {
 		return Observable.fromCallable {
 
-			Log.d("noifid", notificationID)
+			Log.d("noifid", notificationID.toString())
 
 			var bufferedSink: BufferedSink? = null
 			var buffSource: BufferedSource? = null
@@ -68,7 +68,7 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 					}
 
 					//update my progress!!!
-					downloadNotificationHelper.updateNotificationProgress(notificationID)
+					downloadNotificationHelper.updateNotificationProgress(notificationID, 20, 100)
 
 					true
 				}
