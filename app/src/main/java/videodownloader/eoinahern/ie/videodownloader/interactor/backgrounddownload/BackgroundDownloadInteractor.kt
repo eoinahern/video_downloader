@@ -31,6 +31,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 * observable that downloads file
 	 * and updated Notification as it does so
 	 * may need to pass notification id, channelID etc.
+	 *  There may be multiple observables executing at the same time
+	 * to download multiple files
 	 **/
 	override fun buildObservable(): Observable<Boolean> {
 		return Observable.fromCallable {

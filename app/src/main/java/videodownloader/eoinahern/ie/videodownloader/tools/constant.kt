@@ -27,3 +27,5 @@ const val src_attr = "src"
 
 //notification channel id
 const val channel_id = "download_channel"
+const val notification_download_id = "notification_channel"
+const val channel_desc = "download_channel_updates"
