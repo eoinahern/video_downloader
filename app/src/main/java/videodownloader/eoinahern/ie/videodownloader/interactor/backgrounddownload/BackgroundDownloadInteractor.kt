@@ -11,15 +11,16 @@ import okio.BufferedSource
 import okio.Okio
 import videodownloader.eoinahern.ie.videodownloader.data.FileHelper
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
+import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import javax.inject.Inject
 
 
 class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val fileHelper: FileHelper,
-													   val notifManager: NotificationManager,
+													   val downloadNotificationHelper : DownloadNotificationHelper,
 													   val context: Context) : BaseInteractor<Boolean>() {
 
-	lateinit var fileLocation: String
+	private lateinit var fileLocation: String
 
 	fun init(location: String): BackgroundDownloadInteractor {
 		fileLocation = location
@@ -29,6 +30,7 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	/**
 	 * observable that downloads file
 	 * and updated Notification as it does so
+	 * may need to pass notification id, channelID etc.
 	 **/
 	override fun buildObservable(): Observable<Boolean> {
 		return Observable.fromCallable {

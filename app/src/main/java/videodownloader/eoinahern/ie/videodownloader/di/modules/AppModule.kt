@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import videodownloader.eoinahern.ie.videodownloader.MyApp
+import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import java.io.File
 import javax.inject.Singleton
 
@@ -44,6 +45,12 @@ class AppModule(var myApp: MyApp) {
 	@Singleton
 	fun getDownloadsDir() : File {
 		return  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+	}
+
+	@Provides
+	@Singleton
+    fun getDownloadNotifHelper(notifManager : NotificationManager) : DownloadNotificationHelper {
+		return DownloadNotificationHelper(notifManager)
 	}
 
 }
