@@ -21,9 +21,11 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val context: Context) : BaseInteractor<Boolean>() {
 
 	private lateinit var fileLocation: String
+	private lateinit var notificationID : String
 
-	fun init(location: String): BackgroundDownloadInteractor {
+	fun init(location: String, notificationID: String): BackgroundDownloadInteractor {
 		fileLocation = location
+		this.notificationID = notificationID
 		return this
 	}
 
@@ -36,6 +38,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 **/
 	override fun buildObservable(): Observable<Boolean> {
 		return Observable.fromCallable {
+
+			Log.d("noifid", notificationID)
 
 			var bufferedSink: BufferedSink? = null
 			var buffSource: BufferedSource? = null
@@ -64,6 +68,7 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 					}
 
 					//update my progress!!!
+					downloadNotificationHelper.updateNotificationProgress(notificationID)
 
 					true
 				}
