@@ -22,7 +22,7 @@ class DownloadServiceImp : Service(), DownloadService {
 
 	private var notifid: Int = 1
 	@Inject
-	lateinit var notifManager: NotificationManager
+	lateinit var notifyManager: NotificationManager
 	@Inject
 	lateinit var downloadController: DownloadController
 
@@ -49,12 +49,9 @@ class DownloadServiceImp : Service(), DownloadService {
 			createChannel()
 		}
 
-		var location : String? = intent?.getStringExtra("location")
-
-
+		var location: String = intent?.getStringExtra("location") ?: ""
 		var notif = createNotification()
 		downloadController.downloadFile(location)
-		location?.let{ it}
 		startForeground(notifid++, notif)
 
 		return Service.START_STICKY
@@ -67,13 +64,13 @@ class DownloadServiceImp : Service(), DownloadService {
 			Notification.Builder(this, id)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(getString(R.string.notification_title))
-					.setProgress(100,0, false)
+					.setProgress(100, 0, false)
 					.setContentText(getString(R.string.notification_txt)).build()
 		} else {
 			NotificationCompat.Builder(this, id)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(getString(R.string.notification_title))
-					.setProgress(100,0, false)
+					.setProgress(100, 0, false)
 					.setContentText(getString(R.string.notification_txt)).build()
 		}
 	}
@@ -81,14 +78,14 @@ class DownloadServiceImp : Service(), DownloadService {
 	@RequiresApi(Build.VERSION_CODES.O)
 	private fun createChannel() {
 
-		var notificationChannel = notifManager.getNotificationChannel(id)
+		var notificationChannel = notifyManager.getNotificationChannel(id)
 
 		if (notificationChannel == null) {
 
 			notificationChannel = NotificationChannel(id, desc, importance)
 			notificationChannel.lightColor = Color.GREEN
 			notificationChannel.enableVibration(true)
-			notifManager.createNotificationChannel(notificationChannel)
+			notifyManager.createNotificationChannel(notificationChannel)
 		}
 	}
 

@@ -10,7 +10,7 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 
 	private lateinit var service: DownloadService
 
-	fun downloadFile(location: String?) {
+	fun downloadFile(location: String) {
 
 		backgroundDownloadInteractor.init(location).execute(object : BaseSubscriber<Boolean>() {
 
@@ -40,6 +40,4 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 			it.serviceStop()
 		}
 	}
-
-
 }

@@ -21,14 +21,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 	lateinit var fileLocation: String
 
-	fun init(location : String?) : BackgroundDownloadInteractor {
-
-	if (location !== null) {
+	fun init(location: String): BackgroundDownloadInteractor {
 		fileLocation = location
-		return this
-
-	}
-		fileLocation = ""
 		return this
 	}
 
@@ -38,8 +32,6 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 **/
 	override fun buildObservable(): Observable<Boolean> {
 		return Observable.fromCallable {
-
-			//create my file. currently empty
 
 			var bufferedSink: BufferedSink? = null
 			var buffSource: BufferedSource? = null
