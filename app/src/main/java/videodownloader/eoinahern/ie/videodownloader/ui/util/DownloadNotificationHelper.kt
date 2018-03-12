@@ -76,4 +76,25 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 	fun showNotifcationComplete(id: String) {
 
 	}
+
+
+	fun showNotificationFailed(id: Int) {
+
+		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			Notification.Builder(context, channel_id)
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.download_failed_title))
+					.setContentText(context.getString(R.string.download_error))
+					.build()
+		} else {
+			NotificationCompat.Builder(context, channel_id)
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.download_failed_title))
+					.setContentText(context.getString(R.string.download_error))
+					.build()
+
+		}
+
+		notifyManager.notify(id, notification)
+	}
 }

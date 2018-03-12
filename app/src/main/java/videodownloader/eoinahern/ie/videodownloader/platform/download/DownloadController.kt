@@ -4,9 +4,11 @@ import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownload.BackgroundDownloadInteractor
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseSubscriber
 import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadService
+import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import javax.inject.Inject
 
-class DownloadController @Inject constructor(val backgroundDownloadInteractor: BackgroundDownloadInteractor) {
+class DownloadController @Inject constructor(val backgroundDownloadInteractor: BackgroundDownloadInteractor,
+											 val notificationHelper: DownloadNotificationHelper) {
 
 	private lateinit var service: DownloadService
 
@@ -18,10 +20,9 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 				serviceStop()
 			}
 
-
-			//show download failed notification
 			override fun onError(e: Throwable) {
 				e.printStackTrace()
+				notificationHelper.showNotificationFailed(notificationID)
 				serviceStop()
 			}
 		})

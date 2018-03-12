@@ -72,7 +72,6 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 					true
 				}
 
-
 				bufferedSink?.close()
 				buffSource?.close()
 
@@ -81,5 +80,4 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	}
 
 	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()
-
 }
