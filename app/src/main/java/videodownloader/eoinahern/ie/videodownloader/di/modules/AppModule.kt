@@ -25,32 +25,25 @@ class AppModule(var myApp: MyApp) {
 
 	@Provides
 	@Singleton
-	fun getSharedPrefs(context: Context): SharedPreferences {
-		return PreferenceManager.getDefaultSharedPreferences(context)
-	}
+	fun getSharedPrefs(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
 
 	@Provides
 	@Singleton
-	fun getNotificationManager(context: Context): NotificationManager {
-		return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-	}
+	fun getNotificationManager(context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 	@Provides
 	@Singleton
-	fun getClient(): OkHttpClient {
-		return OkHttpClient()
-	}
+	fun getClient(): OkHttpClient = OkHttpClient()
+
 
 	@Provides
 	@Singleton
-	fun getDownloadsDir() : File {
-		return  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-	}
+	fun getDownloadsDir(): File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
 
 	@Provides
 	@Singleton
-    fun getDownloadNotifHelper(notifManager : NotificationManager) : DownloadNotificationHelper {
-		return DownloadNotificationHelper(notifManager)
-	}
-
+	fun getDownloadNotifHelper(context: Context, notifManager: NotificationManager):
+			DownloadNotificationHelper = DownloadNotificationHelper(context, notifManager)
 }

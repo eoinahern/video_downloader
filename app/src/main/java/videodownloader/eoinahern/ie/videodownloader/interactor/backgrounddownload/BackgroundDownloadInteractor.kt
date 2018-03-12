@@ -36,15 +36,14 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 *  There may be multiple observables executing at the same time
 	 * to download multiple files
 	 **/
-	override fun buildObservable(): Observable<Boolean> {
-		return Observable.fromCallable {
+	override fun buildObservable(): Observable<Boolean> = Observable.fromCallable {
 
 			Log.d("noifid", notificationID.toString())
 
 			var bufferedSink: BufferedSink? = null
 			var buffSource: BufferedSource? = null
 
-			try {
+
 				var file = fileHelper.createFile(fileLocation)
 				bufferedSink = Okio.buffer(Okio.sink(file))
 				var buffer = bufferedSink.buffer()
@@ -59,11 +58,11 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 				}
 
 				while (buffSource?.exhausted() != false) {
-					var bytesread = buffSource?.read(buffer, 1000)
+					var bytesRead = buffSource?.read(buffer, 1000)
 
 					bufferedSink.emit()
 
-					bytesread?.let {
+					bytesRead?.let {
 						totalBytesRead += it
 					}
 
@@ -73,16 +72,12 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 					true
 				}
 
-			} catch (exc: Exception) {
-				exc.printStackTrace()
-				false
-			} finally {
+
 				bufferedSink?.close()
 				buffSource?.close()
-			}
 
-			true
-		}
+
+			 true
 	}
 
 	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()

@@ -60,7 +60,7 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 	}
 
 	fun updateNotificationProgress(id: Int, amountDone: Int, totalAmount: Int) {
-		var stuff = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			Notification.Builder(context, channel_id)
 					.setProgress(totalAmount, amountDone, false).build()
 
@@ -69,7 +69,7 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 					.setProgress(totalAmount, amountDone, false).build()
 		}
 
-		notifyManager.notify(id, stuff)
+		notifyManager.notify(id, notification)
 
 	}
 

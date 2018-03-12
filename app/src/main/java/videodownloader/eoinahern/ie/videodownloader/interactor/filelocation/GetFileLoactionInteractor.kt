@@ -13,6 +13,12 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 
 	lateinit var url: String
 
+	/**
+	 * TODO : need to check url scheme to match specific suffix, file type
+	 * TODO: and tag!. otherwise defualt params used
+	 *
+	 */
+
 	override fun buildObservable(): Observable<String> {
 
 		return Observable.fromCallable {

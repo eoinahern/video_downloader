@@ -53,9 +53,9 @@ class RequestHelper @Inject constructor(val client : OkHttpClient) {
 
 		return httpurl?.let {
 
-			var req: Request = Request.Builder().url(httpurl).build()
+			val req: Request = Request.Builder().url(httpurl).build()
 
-			var resp = client.newCall(req).execute()
+			val resp = client.newCall(req).execute()
 			resp.body()?.string()
 		}
 	}

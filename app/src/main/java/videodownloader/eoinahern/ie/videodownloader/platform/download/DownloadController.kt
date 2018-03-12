@@ -18,9 +18,10 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 				serviceStop()
 			}
 
+
+			//show download failed notification
 			override fun onError(e: Throwable) {
 				e.printStackTrace()
-				//service.updateNotification()
 				serviceStop()
 			}
 		})

@@ -15,9 +15,9 @@ import javax.inject.Inject
 class DownloadServiceImp : Service(), DownloadService {
 
 	@Inject
-	private lateinit var notificationHelper: DownloadNotificationHelper
+	lateinit var notificationHelper: DownloadNotificationHelper
 	@Inject
-	private lateinit var downloadController: DownloadController
+	lateinit var downloadController: DownloadController
 
 	override fun onBind(p0: Intent?): IBinder {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

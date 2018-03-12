@@ -7,9 +7,9 @@ object HtmlParser : Parser {
 	override fun search(pageData: String?, tag: String,
 						attr: String, suffix: String): String {
 
-		var doc = Jsoup.parse(pageData)
+		val doc = Jsoup.parse(pageData)
 		println(doc.body())
-		var sourceElement = doc.body().getElementsByTag(tag)
+		val sourceElement = doc.body().getElementsByTag(tag)
 
 		for (item in sourceElement) {
 			var link = item.attr(attr)

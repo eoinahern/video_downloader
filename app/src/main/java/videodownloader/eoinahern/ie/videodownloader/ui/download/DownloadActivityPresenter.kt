@@ -15,14 +15,14 @@ class DownloadActivityPresenter @Inject constructor(private var getFileLoactionI
 		getFileLoactionInteractor.url = url
 		getFileLoactionInteractor.execute(object : BaseSubscriber<String>() {
 
-			override fun onNext(t: String) {
+			override fun onNext(location: String) {
 
-				if (t.isEmpty()) {
+				if (location.isEmpty()) {
 					getView()?.showError()
 					return
 				}
 
-				getView()?.showStarted()
+				getView()?.showStarted(location)
 			}
 
 			override fun onError(e: Throwable) {
