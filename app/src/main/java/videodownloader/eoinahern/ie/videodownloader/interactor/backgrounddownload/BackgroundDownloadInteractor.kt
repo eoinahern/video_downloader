@@ -40,8 +40,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 			Log.d("noifid", notificationID.toString())
 
-			var bufferedSink: BufferedSink? = null
-			var buffSource: BufferedSource? = null
+			var bufferedSink: BufferedSink?
+			var buffSource: BufferedSource?
 
 
 				var file = fileHelper.createFile(fileLocation)

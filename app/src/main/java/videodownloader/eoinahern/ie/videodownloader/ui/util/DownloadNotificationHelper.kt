@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_desc
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
@@ -79,6 +80,8 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 
 	fun showNotificationFailed(id: Int) {
+
+		Log.d("noifid in failed", id.toString())
 
 		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			Notification.Builder(context, channel_id)
