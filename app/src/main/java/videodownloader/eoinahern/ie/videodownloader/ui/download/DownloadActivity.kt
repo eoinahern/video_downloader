@@ -1,12 +1,15 @@
 package videodownloader.eoinahern.ie.videodownloader.ui.download
 
+import android.Manifest
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
@@ -17,6 +20,7 @@ import kotterknife.bindView
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadServiceImp
+import videodownloader.eoinahern.ie.videodownloader.tools.PERMISSION_WRITE_STORAGE
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
@@ -40,10 +44,51 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_download)
 		setUpActionBar()
+		checkFilePermissions()
 
 		presenter.attachView(this)
-		downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
 	}
+
+	fun checkFilePermissions() {
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
+						Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+			showSelectPermissions()
+		} else {
+			downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
+		}
+	}
+
+	private fun showSelectPermissions() {
+
+		ActivityCompat.requestPermissions(this,
+				arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_WRITE_STORAGE)
+
+	}
+
+	override fun onRequestPermissionsResult(requestCode: Int,
+											permissions: Array<String>, grantResults: IntArray) {
+		when (requestCode) {
+			PERMISSION_WRITE_STORAGE -> {
+				// If request is cancelled, the result arrays are empty.
+				if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+
+					// permission was granted, yay! Do the
+					//can write to file!!!
+					downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
+
+				} else {
+
+					// permission denied, boo! Disable the
+					// functionality that depends on this permission.
+					//show dialog.
+					downloadBtn.setOnClickListener { showSelectPermissions() }
+				}
+				return
+			}
+		}
+	}
+
 
 	companion object {
 		fun getStartIntent(context: Context): Intent {

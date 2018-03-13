@@ -10,6 +10,7 @@ class MyApp : Application() {
 
 	private lateinit var  appComponent: AppComponent
 
+
 	override fun onCreate() {
 		super.onCreate()
 		initAppComponent()

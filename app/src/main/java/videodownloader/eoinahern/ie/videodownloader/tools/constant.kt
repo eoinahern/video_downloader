@@ -33,5 +33,7 @@ const val channel_desc = "download_channel_updates"
 const val location_intent_title = "location_intent"
 
 
+const val PERMISSION_WRITE_STORAGE : Int = 33
+
 
 
