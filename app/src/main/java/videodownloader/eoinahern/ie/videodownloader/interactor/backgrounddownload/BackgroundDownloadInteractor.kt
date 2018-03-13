@@ -39,45 +39,45 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 **/
 	override fun buildObservable(): Observable<Boolean> = Observable.fromCallable {
 
-			Log.d("noifid", notificationID.toString())
+		Log.d("noifid", notificationID.toString())
 
-			var bufferedSink: BufferedSink?
-			var buffSource: BufferedSource?
-
-
-				var file = fileHelper.createFile(fileLocation)
-				bufferedSink = Okio.buffer(Okio.sink(file))
+		var bufferedSink: BufferedSink?
+		var buffSource: BufferedSource?
 
 
-				var buffer = bufferedSink?.buffer()
-				var totalBytesRead: Long = 0
-
-				val resp = client.newCall(createRequest()).execute()
-				buffSource = resp.body()?.source()
+		var file = fileHelper.createFile("hello.mp4")
+		bufferedSink = Okio.buffer(Okio.sink(file))
 
 
-				if (buffSource == null) {
-					Log.d("source", "no buff source on resp")
-				}
+		var buffer = bufferedSink.buffer()
+		var totalBytesRead: Long = 0
 
-				while (buffSource?.exhausted() != false) {
-					var bytesRead = buffSource?.read(buffer, 1000)
+		val resp = client.newCall(createRequest()).execute()
 
-					bufferedSink?.emit()
+		buffSource = resp.body()?.source()
 
-					bytesRead?.let {
-						totalBytesRead += it
-					}
+		Log.d("exhausted", buffSource?.exhausted().toString())
+		Log.d("content-length", resp.body()?.contentLength().toString())
+		var totalAmount =  resp.body()?.contentLength() ?: 5000L
 
-					downloadNotificationHelper.updateNotificationProgress(notificationID, 20, 100)
-					true
-				}
+		while (buffSource?.exhausted() != true) {
+			var bytesRead = buffSource?.read(buffer, 1000)
 
-				bufferedSink?.close()
-				buffSource.close()
+			bufferedSink?.emit()
+
+			bytesRead?.let {
+				totalBytesRead += it
+			}
+
+			downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
+			true
+		}
+
+		bufferedSink?.close()
+		buffSource.close()
 
 
-			 true
+		true
 	}
 
 	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()

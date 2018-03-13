@@ -60,14 +60,18 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	}
 
-	fun updateNotificationProgress(id: Int, amountDone: Int, totalAmount: Int) {
+	fun updateNotificationProgress(id: Int, amountDone: Long, totalAmount: Long) {
 		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			Notification.Builder(context, channel_id)
-					.setProgress(totalAmount, amountDone, false).build()
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.notification_title))
+					.setProgress(totalAmount.toInt(), amountDone.toInt(), false).build()
 
 		} else {
 			NotificationCompat.Builder(context, channel_id)
-					.setProgress(totalAmount, amountDone, false).build()
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.notification_title))
+					.setProgress(totalAmount.toInt(), amountDone.toInt(), false).build()
 		}
 
 		notifyManager.notify(id, notification)

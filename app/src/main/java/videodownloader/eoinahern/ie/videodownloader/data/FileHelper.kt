@@ -9,32 +9,34 @@ import java.io.File
 import javax.inject.Inject
 
 
-class FileHelper @Inject constructor(var cont : Context, var downloadDir : File)  {
+class FileHelper @Inject constructor(var cont: Context, var downloadDir: File) {
 
-	private lateinit var filePath : String
-	private lateinit var videoFile : File
+	private lateinit var filePath: String
+	private lateinit var videoFile: File
 
-	fun checkEnoughSpace(fileSize : Int)  : Boolean {
+	fun checkEnoughSpace(fileSize: Int): Boolean {
 		return fileSize <= downloadDir.freeSpace
 	}
 
-	fun createFile(name: String) : File {
+	fun createFile(name: String): File {
 		filePath = getBaseLoaction() + name
 
-		if(ContextCompat.checkSelfPermission(cont, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+		if (ContextCompat.checkSelfPermission(cont, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 			Log.d("permission", "not granted???")
 		} else {
 			Log.d("permission", "permission granted!!!")
 		}
 		videoFile = File(getBaseLoaction(), name)
+		videoFile.setWritable(true)
+		Log.d("file exists", videoFile.exists().toString())
 		return videoFile
 	}
 
-	fun getVideoFile() :  File {
+	fun getVideoFile(): File {
 		return videoFile
 	}
 
-	private fun  getBaseLoaction() : String = downloadDir.path
+	private fun getBaseLoaction(): String = downloadDir.path
 
 
 	fun saveFile() {
