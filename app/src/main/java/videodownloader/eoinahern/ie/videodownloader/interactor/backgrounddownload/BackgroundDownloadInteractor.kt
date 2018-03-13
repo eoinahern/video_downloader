@@ -3,6 +3,7 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 import android.content.Context
 import android.os.Looper
+import android.text.format.Time
 import android.util.Log
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -45,7 +46,6 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 		var file = fileHelper.createFile("hello.mp4")
 		bufferedSink = Okio.buffer(Okio.sink(file))
 
-
 		var buffer = bufferedSink.buffer()
 		var totalBytesRead: Long = 0
 
@@ -53,11 +53,9 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 		buffSource = resp.body()?.source()
 
-		//Log.d("exhausted", buffSource?.exhausted().toString())
-		//Log.d("content-length", resp.body()?.contentLength().toString())
-		//Log.d("on main", (Looper.myLooper() === Looper.getMainLooper()).toString())
-
-		var totalAmount =  resp.body()?.contentLength() ?: 5000L
+		var startTime = System.currentTimeMillis()
+		val duration = 3000L
+		val totalAmount = resp.body()?.contentLength() ?: 5000L
 
 		while (buffSource?.exhausted() != true) {
 			var bytesRead = buffSource?.read(buffer, 10000)
@@ -68,7 +66,10 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 				totalBytesRead += it
 			}
 
-			//downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
+			if (startTime + duration < System.currentTimeMillis()) {
+				downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
+				startTime = System.currentTimeMillis()
+			}
 		}
 
 		downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
