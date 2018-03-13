@@ -30,7 +30,7 @@ class DownloadServiceImp : Service(), DownloadService {
 	}
 
 	override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-		Log.d("service started", "service started")
+		//Log.d("service started", "service started")
 		var location: String = intent?.getStringExtra(location_intent_title) ?: ""
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

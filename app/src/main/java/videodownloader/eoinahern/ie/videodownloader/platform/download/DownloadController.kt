@@ -17,13 +17,16 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 		backgroundDownloadInteractor.init(location, notificationID).execute(object : BaseSubscriber<Boolean>() {
 
 			override fun onNext(t: Boolean) {
-				Log.d("download", "complete!")
+				//Log.d("download", "complete!")
+				notificationHelper.showNotifcationComplete(notificationID)
+				//serviceStop()
 			}
 
 			override fun onError(e: Throwable) {
-				e.printStackTrace()
-				Log.d("download", "failed")
+				//e.printStackTrace()
+				//Log.d("download", "failed")
 				notificationHelper.showNotificationFailed(notificationID)
+				//serviceStop()
 			}
 		})
 	}

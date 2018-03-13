@@ -2,6 +2,7 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 
 import android.content.Context
+import android.os.Looper
 import android.util.Log
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -12,7 +13,6 @@ import okio.Okio
 import videodownloader.eoinahern.ie.videodownloader.data.FileHelper
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
-import java.io.IOException
 import javax.inject.Inject
 
 
@@ -39,11 +39,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 **/
 	override fun buildObservable(): Observable<Boolean> = Observable.fromCallable {
 
-		Log.d("noifid", notificationID.toString())
-
 		var bufferedSink: BufferedSink?
 		var buffSource: BufferedSource?
-
 
 		var file = fileHelper.createFile("hello.mp4")
 		bufferedSink = Okio.buffer(Okio.sink(file))
@@ -56,12 +53,14 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 		buffSource = resp.body()?.source()
 
-		Log.d("exhausted", buffSource?.exhausted().toString())
-		Log.d("content-length", resp.body()?.contentLength().toString())
+		//Log.d("exhausted", buffSource?.exhausted().toString())
+		//Log.d("content-length", resp.body()?.contentLength().toString())
+		//Log.d("on main", (Looper.myLooper() === Looper.getMainLooper()).toString())
+
 		var totalAmount =  resp.body()?.contentLength() ?: 5000L
 
 		while (buffSource?.exhausted() != true) {
-			var bytesRead = buffSource?.read(buffer, 1000)
+			var bytesRead = buffSource?.read(buffer, 10000)
 
 			bufferedSink?.emit()
 
@@ -69,13 +68,13 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 				totalBytesRead += it
 			}
 
-			downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
-			true
+			//downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
 		}
+
+		downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
 
 		bufferedSink?.close()
 		buffSource.close()
-
 
 		true
 	}

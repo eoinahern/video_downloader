@@ -78,7 +78,24 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	}
 
-	fun showNotifcationComplete(id: String) {
+	fun showNotifcationComplete(id: Int) {
+
+		Log.d("noifid in failed", id.toString())
+
+		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			Notification.Builder(context, channel_id)
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.download_complete))
+					.setProgress(100, 100, false).build()
+
+		} else {
+			NotificationCompat.Builder(context, channel_id)
+					.setSmallIcon(R.drawable.ic_download_dark)
+					.setContentTitle(context.getString(R.string.download_complete))
+					.setProgress(100, 100, false).build()
+		}
+
+		notifyManager.notify(id, notification)
 
 	}
 
