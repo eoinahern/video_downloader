@@ -49,7 +49,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		presenter.attachView(this)
 	}
 
-	fun checkFilePermissions() {
+	private fun checkFilePermissions() {
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
 						Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -70,25 +70,18 @@ class DownloadActivity : BaseActivity(), DownloadView {
 											permissions: Array<String>, grantResults: IntArray) {
 		when (requestCode) {
 			PERMISSION_WRITE_STORAGE -> {
-				// If request is cancelled, the result arrays are empty.
 				if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-
-					// permission was granted, yay! Do the
-					//can write to file!!!
+					// permission was granted, yay!
 					downloadBtn.setOnClickListener { presenter.downloadFile(urlTxt.text.toString()) }
 
 				} else {
-
-					// permission denied, boo! Disable the
-					// functionality that depends on this permission.
-					//show dialog.
+					// permission denied, boo!
 					downloadBtn.setOnClickListener { showSelectPermissions() }
 				}
 				return
 			}
 		}
 	}
-
 
 	companion object {
 		fun getStartIntent(context: Context): Intent {

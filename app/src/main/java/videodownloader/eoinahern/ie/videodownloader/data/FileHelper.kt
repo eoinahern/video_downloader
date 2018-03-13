@@ -20,6 +20,12 @@ class FileHelper @Inject constructor(var cont : Context, var downloadDir : File)
 
 	fun createFile(name: String) : File {
 		filePath = getBaseLoaction() + name
+
+		if(ContextCompat.checkSelfPermission(cont, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+			Log.d("permission", "not granted???")
+		} else {
+			Log.d("permission", "permission granted!!!")
+		}
 		videoFile = File(getBaseLoaction(), name)
 		return videoFile
 	}
