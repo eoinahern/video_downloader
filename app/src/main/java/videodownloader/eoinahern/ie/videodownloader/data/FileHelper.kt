@@ -1,6 +1,7 @@
 package videodownloader.eoinahern.ie.videodownloader.data
 
 import android.content.Context
+import android.util.Log
 import java.io.File
 import javax.inject.Inject
 
@@ -17,6 +18,7 @@ class FileHelper @Inject constructor(var cont : Context, var downloadDir : File)
 	fun createFile(name: String) : File {
 		filePath = getBaseLoaction() + name
 		videoFile = File(getBaseLoaction(), name)
+		Log.d("created", videoFile.mkdirs().toString())
 		return videoFile
 	}
 
@@ -24,7 +26,7 @@ class FileHelper @Inject constructor(var cont : Context, var downloadDir : File)
 		return videoFile
 	}
 
-	private fun  getBaseLoaction() : String = downloadDir.absolutePath
+	private fun  getBaseLoaction() : String = downloadDir.path
 
 
 	fun saveFile() {

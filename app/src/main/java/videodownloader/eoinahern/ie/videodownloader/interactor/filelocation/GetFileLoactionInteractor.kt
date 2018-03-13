@@ -23,7 +23,7 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 
 		return Observable.fromCallable {
 
-			val htmlStr : String? = reqHelper.getPageSource(url)
+			val htmlStr: String? = reqHelper.getPageSource(url)
 			HtmlParser.search(htmlStr)
 		}
 	}

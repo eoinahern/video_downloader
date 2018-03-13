@@ -12,6 +12,7 @@ import okio.Okio
 import videodownloader.eoinahern.ie.videodownloader.data.FileHelper
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -46,7 +47,9 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 				var file = fileHelper.createFile(fileLocation)
 				bufferedSink = Okio.buffer(Okio.sink(file))
-				var buffer = bufferedSink.buffer()
+
+
+				var buffer = bufferedSink?.buffer()
 				var totalBytesRead: Long = 0
 
 				val resp = client.newCall(createRequest()).execute()
@@ -60,20 +63,18 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 				while (buffSource?.exhausted() != false) {
 					var bytesRead = buffSource?.read(buffer, 1000)
 
-					bufferedSink.emit()
+					bufferedSink?.emit()
 
 					bytesRead?.let {
 						totalBytesRead += it
 					}
 
-					//update my progress!!!
 					downloadNotificationHelper.updateNotificationProgress(notificationID, 20, 100)
-
 					true
 				}
 
 				bufferedSink?.close()
-				buffSource?.close()
+				buffSource.close()
 
 
 			 true
