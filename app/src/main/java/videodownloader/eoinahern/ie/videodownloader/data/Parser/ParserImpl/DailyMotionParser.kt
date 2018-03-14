@@ -12,12 +12,12 @@ object DailyMotionParser : Parser {
 		val tagElements = doc.body().getElementsByTag(tag)
 
 		for(tag in tagElements){
-
-			if(tag.attr(attr) == "page-pata") {
-				return tag.text()
+			if(tag.attr(attr) == "page-data") {
+				return  tag.data()
 			}
 		}
 
+		//from here we need to parse a mess of a string!!
 
 		return ""
 	}
