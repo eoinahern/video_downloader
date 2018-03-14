@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.webkit.URLUtil
 import java.io.File
 import javax.inject.Inject
 
@@ -20,27 +21,15 @@ class FileHelper @Inject constructor(var cont: Context, var downloadDir: File) {
 
 	fun createFile(name: String): File {
 		filePath = getBaseLoaction() + name
-
-		if (ContextCompat.checkSelfPermission(cont, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-			Log.d("permission", "not granted???")
-		} else {
-			Log.d("permission", "permission granted!!!")
-		}
 		videoFile = File(getBaseLoaction(), name)
 		videoFile.setWritable(true)
-		Log.d("file exists", videoFile.exists().toString())
 		return videoFile
 	}
 
-	fun getVideoFile(): File {
-		return videoFile
+	fun getFilename(urlLocation : String, disposition: String?, mimeType: String?) :String {
+		return  URLUtil.guessFileName(urlLocation,  disposition, mimeType)
 	}
 
 	private fun getBaseLoaction(): String = downloadDir.path
-
-
-	fun saveFile() {
-
-	}
 
 }

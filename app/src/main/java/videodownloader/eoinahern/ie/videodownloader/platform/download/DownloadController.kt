@@ -14,19 +14,16 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 
 	fun downloadFile(location: String, notificationID: Int) {
 
-		backgroundDownloadInteractor.init(location, notificationID).execute(object : BaseSubscriber<Boolean>() {
+		backgroundDownloadInteractor.init(location, notificationID).execute(object : BaseSubscriber<Unit>() {
 
-			override fun onNext(t: Boolean) {
-				//Log.d("download", "complete!")
+			override fun onNext(t: Unit) {
+				Log.d("download", "complete!")
 				notificationHelper.showNotifcationComplete(notificationID)
-				//serviceStop()
 			}
 
 			override fun onError(e: Throwable) {
-				//e.printStackTrace()
-				//Log.d("download", "failed")
+				Log.d("download", "failed")
 				notificationHelper.showNotificationFailed(notificationID)
-				//serviceStop()
 			}
 		})
 	}
@@ -36,7 +33,7 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 	}
 
 
-	fun serviceStop() {
+	/*fun serviceStop() {
 
 		backgroundDownloadInteractor.dispose()
 		Log.d("serviceStop", "service stopped!!")
@@ -44,5 +41,5 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 		service.let {
 			it.serviceStop()
 		}
-	}
+	}*/
 }

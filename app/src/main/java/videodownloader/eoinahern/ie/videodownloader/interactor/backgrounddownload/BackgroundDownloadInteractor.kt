@@ -2,8 +2,6 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 
 import android.content.Context
-import android.os.Looper
-import android.text.format.Time
 import android.util.Log
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -20,7 +18,7 @@ import javax.inject.Inject
 class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val fileHelper: FileHelper,
 													   val downloadNotificationHelper: DownloadNotificationHelper,
-													   val context: Context) : BaseInteractor<Boolean>() {
+													   val context: Context) : BaseInteractor<Unit>() {
 
 	private lateinit var fileLocation: String
 	private var notificationID: Int = -1
@@ -38,34 +36,37 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 *  There may be multiple observables executing at the same time
 	 * to download multiple files
 	 **/
-	override fun buildObservable(): Observable<Boolean> = Observable.fromCallable {
 
-		var bufferedSink: BufferedSink?
-		var buffSource: BufferedSource?
+	//TODO: Cleanup
+	override fun buildObservable(): Observable<Unit> = Observable.fromCallable {
 
-		var file = fileHelper.createFile("hello.mp4")
-		bufferedSink = Okio.buffer(Okio.sink(file))
-
-		var buffer = bufferedSink.buffer()
+		val bufferedSink: BufferedSink?
+		val buffSource: BufferedSource?
+		val duration = 3000L
+		var startTime = System.currentTimeMillis()
 		var totalBytesRead: Long = 0
 
 		val resp = client.newCall(createRequest()).execute()
-
 		buffSource = resp.body()?.source()
 
-		var startTime = System.currentTimeMillis()
-		val duration = 3000L
+		val filename = fileHelper.getFilename(fileLocation, resp.headers().get("Content-Disposition"),
+				resp.headers().get("Mime-Type"))
+
+		val file = fileHelper.createFile(filename)
+		bufferedSink = Okio.buffer(Okio.sink(file))
+		val buffer = bufferedSink.buffer()
+
 		val totalAmount = resp.body()?.contentLength() ?: 5000L
 
 		while (buffSource?.exhausted() != true) {
 			var bytesRead = buffSource?.read(buffer, 10000)
-
 			bufferedSink?.emit()
 
 			bytesRead?.let {
 				totalBytesRead += it
 			}
 
+			//only update my notification progressbar every 3 seconds
 			if (startTime + duration < System.currentTimeMillis()) {
 				downloadNotificationHelper.updateNotificationProgress(notificationID, totalBytesRead, totalAmount)
 				startTime = System.currentTimeMillis()
@@ -76,8 +77,6 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 		bufferedSink?.close()
 		buffSource.close()
-
-		true
 	}
 
 	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()
