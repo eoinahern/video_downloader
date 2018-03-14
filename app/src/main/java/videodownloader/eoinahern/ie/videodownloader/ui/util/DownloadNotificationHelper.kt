@@ -22,6 +22,8 @@ import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 class DownloadNotificationHelper constructor(var context: Context, var notifyManager: NotificationManager) {
 
 	private var notificationID = 1
+	private lateinit var builder: Notification.Builder
+	private lateinit var builderCompat: NotificationCompat.Builder
 
 	@RequiresApi(Build.VERSION_CODES.O)
 	fun createChannel(channelID: String = channel_id) {
@@ -38,17 +40,21 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	fun createNotification(channelID: String = channel_id): Notification {
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			Notification.Builder(context, channelID)
+			builder = Notification.Builder(context, channelID)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(context.getString(R.string.notification_title))
 					.setProgress(100, 0, false)
-					.setContentText(context.getString(R.string.notification_txt)).build()
+					.setContentText(context.getString(R.string.notification_txt))
+
+			builder.build()
 		} else {
-			NotificationCompat.Builder(context, channelID)
+			builderCompat = NotificationCompat.Builder(context, channelID)
 					.setSmallIcon(R.drawable.ic_download_dark)
 					.setContentTitle(context.getString(R.string.notification_title))
 					.setProgress(100, 0, false)
-					.setContentText(context.getString(R.string.notification_txt)).build()
+					.setContentText(context.getString(R.string.notification_txt))
+
+			builderCompat.build()
 		}
 
 	}
@@ -56,74 +62,56 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 	fun getNotificationID(): Int = notificationID++
 
 
-	fun updateNotificationImage(id: String) {
-
-	}
-
 	fun updateNotificationProgress(id: Int, amountDone: Long, totalAmount: Long) {
-		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			Notification.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.notification_title))
-					.setProgress(totalAmount.toInt(), amountDone.toInt(), false).build()
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+			builder.setProgress(totalAmount.toInt(), amountDone.toInt(), false)
+					.setContentText(null)
+			notifyManager.notify(id, builder.build())
 
 		} else {
-			NotificationCompat.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.notification_title))
-					.setProgress(totalAmount.toInt(), amountDone.toInt(), false).build()
+
+			builderCompat.setProgress(totalAmount.toInt(), amountDone.toInt(), false)
+					.setContentText(null)
+			notifyManager.notify(id, builderCompat.build())
 		}
-
-		notifyManager.notify(id, notification)
-
 	}
 
-	fun updateNotificationTimed(id : Int, startTime : Long, waitTime : Long, amountDone : Long,
-								totalAmount : Long) {
+	fun updateNotificationTimed(id: Int, startTime: Long, waitTime: Long, amountDone: Long,
+								totalAmount: Long) {
 
 	}
 
 	fun showNotifcationComplete(id: Int) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-		Log.d("noifid in failed", id.toString())
-
-		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			Notification.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
+			builder.setProgress(100, 100, false)
 					.setContentTitle(context.getString(R.string.download_complete))
-					.setProgress(100, 100, false).build()
+			notifyManager.notify(id, builder.build())
 
 		} else {
-			NotificationCompat.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
+
+			builderCompat.setProgress(100, 100, false)
 					.setContentTitle(context.getString(R.string.download_complete))
-					.setProgress(100, 100, false).build()
+			notifyManager.notify(id, builderCompat.build())
 		}
-
-		notifyManager.notify(id, notification)
-
 	}
 
 
 	fun showNotificationFailed(id: Int) {
 
-		Log.d("noifid in failed", id.toString())
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-		var notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			Notification.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.download_failed_title))
+			builder.setContentTitle(context.getString(R.string.download_failed_title))
 					.setContentText(context.getString(R.string.download_error))
-					.build()
+			notifyManager.notify(id, builder.build())
+
 		} else {
-			NotificationCompat.Builder(context, channel_id)
-					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.download_failed_title))
-					.setContentText(context.getString(R.string.download_error))
-					.build()
 
+			builder.setContentTitle(context.getString(R.string.download_failed_title))
+					.setContentText(context.getString(R.string.download_error))
+			notifyManager.notify(id, builder.build())
 		}
 
-		notifyManager.notify(id, notification)
 	}
 }

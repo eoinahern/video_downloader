@@ -2,7 +2,6 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownlo
 
 
 import android.content.Context
-import android.util.Log
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.Request
