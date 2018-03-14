@@ -3,14 +3,15 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.filelocation
 import io.reactivex.Observable
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.HtmlParser
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
+import videodownloader.eoinahern.ie.videodownloader.data.models.HTMLUtilsFactory
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
-import videodownloader.eoinahern.ie.videodownloader.tools.Vimeo
 
 import javax.inject.Inject
 
 @PerScreen
-class GetFileLoactionInteractor @Inject constructor(private val reqHelper: RequestHelper) : BaseInteractor<String>() {
+class GetFileLoactionInteractor @Inject constructor(private val reqHelper: RequestHelper,
+													private val htmlUtilsFactory: HTMLUtilsFactory) : BaseInteractor<String>() {
 
 	lateinit var url: String
 
@@ -23,9 +24,8 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 	override fun buildObservable(): Observable<String> {
 
 		return Observable.fromCallable {
-
+			val htmlUtils = htmlUtilsFactory.getFileParserUtils("boo")
 			val htmlStr: String? = reqHelper.getPageSource(url)
-
 			HtmlParser.search(htmlStr)
 		}
 	}

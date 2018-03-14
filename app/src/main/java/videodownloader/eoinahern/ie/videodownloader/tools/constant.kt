@@ -12,16 +12,19 @@ const val bitchute_url = "www.bitchute.com"
 const val dailymotion_url = "www.dailymotion.com"
 
 //suffix
+const val suffix_title = "suffix"
 const val mp4_suffix = ".mp4"
 const val mkv_suffix = ".mkv"
 const val avi_suffix = ".avi"
 
 
 //tags
+const val tag_title = "tag"
 const val source_tag = "source"
 const val link_tag = "a"
 
 //attr
+const val attr_title = "attr"
 const val src_attr = "src"
 
 

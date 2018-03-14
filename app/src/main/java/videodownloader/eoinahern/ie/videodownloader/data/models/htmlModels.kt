@@ -1,5 +1,7 @@
 package videodownloader.eoinahern.ie.videodownloader.data.models
 
+import videodownloader.eoinahern.ie.videodownloader.tools.vimeo_url
+
 
 interface HtmlUtils {
 	val suffix : String
@@ -8,13 +10,13 @@ interface HtmlUtils {
 }
 
 object Vimeo : HtmlUtils  {
-	override val suffix =  "mp4"
+	override val suffix =  ".mp4"
 	override val tag =  "source"
 	override val attr = "src"
 }
 
 object Bitchute : HtmlUtils  {
-	override val suffix =  "mp4"
+	override val suffix =  ".mp4"
 	override val tag =  "source"
 	override val attr = "src"
 }

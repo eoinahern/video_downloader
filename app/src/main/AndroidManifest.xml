@@ -18,9 +18,10 @@
 		<service android:name=".platform.download.service.DownloadServiceImp"
 			android:exported="false"/>
 
-		<activity android:name=".ui.download.DownloadActivity" >
+		<activity android:name=".ui.download.DownloadActivity"
+			android:windowSoftInputMode="stateVisible|adjustResize"/>
 
-		</activity>
+
 		<activity android:name=".ui.intro.IntroActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
