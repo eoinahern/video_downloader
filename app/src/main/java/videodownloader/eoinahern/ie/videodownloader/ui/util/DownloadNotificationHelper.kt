@@ -78,6 +78,11 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 
 	}
 
+	fun updateNotificationTimed(id : Int, startTime : Long, waitTime : Long, amountDone : Long,
+								totalAmount : Long) {
+
+	}
+
 	fun showNotifcationComplete(id: Int) {
 
 		Log.d("noifid in failed", id.toString())

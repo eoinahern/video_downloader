@@ -24,6 +24,7 @@ import videodownloader.eoinahern.ie.videodownloader.tools.PERMISSION_WRITE_STORA
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
 import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.base.BaseActivity
+import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import javax.inject.Inject
 
 
@@ -36,9 +37,6 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private lateinit var snackbar: Snackbar
 	@Inject
 	lateinit var presenter: DownloadActivityPresenter
-	@Inject
-	lateinit var notificationManager: NotificationManager
-	private var notifyID: Int = 0
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -113,24 +111,13 @@ class DownloadActivity : BaseActivity(), DownloadView {
 		urlTxt.text.clear()
 	}
 
-	/**
-	 * build a notification
-	 */
-	private fun buildNotification(): NotificationCompat.Builder = NotificationCompat.Builder(this, channel_id)
-			.setSmallIcon(R.drawable.ic_download_dark)
-			.setContentTitle(getString(R.string.notification_title))
-			.setContentText(getString(R.string.notification_txt))
-
-
 	override fun showStarted(location: String) {
 
 		snackbar = Snackbar.make(constraint, R.string.loading_started, Snackbar.LENGTH_LONG)
 		snackbar.show()
 		urlTxt.text.clear()
 
-		notificationManager.notify(notifyID++, buildNotification().build())
 		startDownloadService(location)
-
 	}
 
 	private fun startDownloadService(location: String) {
