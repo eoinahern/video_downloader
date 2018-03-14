@@ -5,6 +5,7 @@ import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.HtmlP
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
+import videodownloader.eoinahern.ie.videodownloader.tools.Vimeo
 
 import javax.inject.Inject
 
@@ -24,6 +25,7 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 		return Observable.fromCallable {
 
 			val htmlStr: String? = reqHelper.getPageSource(url)
+
 			HtmlParser.search(htmlStr)
 		}
 	}
