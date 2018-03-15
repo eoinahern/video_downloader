@@ -32,10 +32,10 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 		return Observable.fromCallable {
 
 			val httpurl = HttpUrl.parse(url)
-			val scheme = httpurl?.scheme()
+			val host = httpurl?.host()
 
 
-			val htmlUtils = htmlUtilsFactory.getFileParserUtils(scheme)
+			val htmlUtils = htmlUtilsFactory.getFileParserUtils(host)
 			val htmlStr: String? = reqHelper.getPageSource(url)
 
 			//need to implement a different parser helper for each site.

@@ -6,7 +6,6 @@ import okio.*
 
 /**
  * add notification helper to update and write to file
- *
  */
 
 class DownloadUpdateResponseBody : ResponseBody() {
@@ -22,9 +21,7 @@ class DownloadUpdateResponseBody : ResponseBody() {
 
 	override fun source(): BufferedSource {
 
-		if (bufferedSource != null) {
-			bufferedSource = Okio.buffer(source(responseBody.source()))
-		}
+		bufferedSource = Okio.buffer(source(responseBody.source()))
 		return bufferedSource
 	}
 

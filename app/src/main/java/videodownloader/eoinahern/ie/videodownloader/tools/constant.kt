@@ -10,6 +10,8 @@ package videodownloader.eoinahern.ie.videodownloader.tools
 const val vimeo_url = "www.vimeo.com"
 const val bitchute_url = "www.bitchute.com"
 const val dailymotion_url = "www.dailymotion.com"
+const val liveleak_url ="www.liveleak.com"
+const val worldstar_url = "www.worldstarhiphop.com"
 
 //suffix
 const val suffix_title = "suffix"
