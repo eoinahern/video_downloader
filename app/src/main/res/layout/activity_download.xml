@@ -14,7 +14,33 @@
 		android:layout_height="?attr/actionBarSize"
 		android:background="@color/colorPrimaryDark"
 		app:theme="@style/ToolBarStyle"
-		app:title="@string/app_name" />
+		>
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			>
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/im_view"
+				android:src="@drawable/ic_download_dark_icon"
+				android:layout_centerVertical="true"
+				/>
+
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:textColor="@color/colorAccent"
+				android:layout_toRightOf="@id/im_view"
+				android:text="@string/download_name"/>
+		</RelativeLayout>
+
+	</android.support.v7.widget.Toolbar>
 
 
 	<EditText
