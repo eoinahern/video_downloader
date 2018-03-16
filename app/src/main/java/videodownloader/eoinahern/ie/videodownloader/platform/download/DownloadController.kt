@@ -5,6 +5,7 @@ import videodownloader.eoinahern.ie.videodownloader.interactor.backgrounddownloa
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseSubscriber
 import videodownloader.eoinahern.ie.videodownloader.platform.download.service.DownloadService
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
+import java.io.File
 import javax.inject.Inject
 
 class DownloadController @Inject constructor(val backgroundDownloadInteractor: BackgroundDownloadInteractor,
@@ -14,11 +15,12 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 
 	fun downloadFile(location: String, notificationID: Int) {
 
-		backgroundDownloadInteractor.init(location, notificationID).execute(object : BaseSubscriber<Unit>() {
+		backgroundDownloadInteractor.init(location, notificationID).execute(object : BaseSubscriber<File>() {
 
-			override fun onNext(t: Unit) {
+			override fun onNext(file: File) {
 				Log.d("download", "complete!")
-				notificationHelper.showNotifcationComplete(notificationID)
+
+				notificationHelper.showNotifcationComplete(notificationID, service.createPlayVideoIntent(file))
 			}
 
 			override fun onError(e: Throwable) {

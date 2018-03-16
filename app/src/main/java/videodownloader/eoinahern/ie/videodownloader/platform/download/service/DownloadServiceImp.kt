@@ -1,7 +1,9 @@
 package videodownloader.eoinahern.ie.videodownloader.platform.download.service
 
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.net.Uri
 import android.os.IBinder
 import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.MyApp
@@ -9,15 +11,19 @@ import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadCo
 import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadServiceComponent
 import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
+import java.io.File
 import javax.inject.Inject
 
 
 class DownloadServiceImp : Service(), DownloadService {
 
+
 	@Inject
 	lateinit var notificationHelper: DownloadNotificationHelper
 	@Inject
 	lateinit var downloadController: DownloadController
+
+	private var reqCode = 1
 
 	override fun onBind(p0: Intent?): IBinder {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -43,6 +49,16 @@ class DownloadServiceImp : Service(), DownloadService {
 		startForeground(notificationID, notif)
 		return Service.START_STICKY
 
+	}
+
+	override fun createPlayVideoIntent(file : File): PendingIntent {
+
+		val intent = Intent(Intent.ACTION_VIEW)
+		val uri = Uri.fromFile(file)
+		intent.data = uri
+		println(this.contentResolver.getType(uri)) //not working??
+		intent.type = "video/mp4"
+		return PendingIntent.getActivity(this, reqCode++, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
 	}
 
 	override fun serviceStop() {

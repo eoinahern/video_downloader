@@ -11,13 +11,14 @@ import okio.Okio
 import videodownloader.eoinahern.ie.videodownloader.data.FileHelper
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
+import java.io.File
 import javax.inject.Inject
 
 
 class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 													   val fileHelper: FileHelper,
 													   val downloadNotificationHelper: DownloadNotificationHelper,
-													   val context: Context) : BaseInteractor<Unit>() {
+													   val context: Context) : BaseInteractor<File>() {
 
 	private lateinit var fileLocation: String
 	private var notificationID: Int = -1
@@ -37,7 +38,7 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 	 **/
 
 	//TODO: Cleanup
-	override fun buildObservable(): Observable<Unit> = Observable.fromCallable {
+	override fun buildObservable(): Observable<File> = Observable.fromCallable {
 
 		val bufferedSink: BufferedSink?
 		val buffSource: BufferedSource?
@@ -76,6 +77,8 @@ class BackgroundDownloadInteractor @Inject constructor(val client: OkHttpClient,
 
 		bufferedSink?.close()
 		buffSource.close()
+
+		file
 	}
 
 	private fun createRequest(): Request = Request.Builder().url(fileLocation).build()

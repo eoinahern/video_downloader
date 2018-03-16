@@ -3,7 +3,9 @@ package videodownloader.eoinahern.ie.videodownloader.ui.util
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -12,6 +14,7 @@ import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_desc
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
+import videodownloader.eoinahern.ie.videodownloader.ui.download.DownloadActivity
 
 /**
  * Singleton helper class to help manager apps notifications
@@ -77,26 +80,24 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 		}
 	}
 
-	fun updateNotificationTimed(id: Int, startTime: Long, waitTime: Long, amountDone: Long,
-								totalAmount: Long) {
+	fun showNotifcationComplete(id: Int, pendingIntent : PendingIntent) {
 
-	}
 
-	fun showNotifcationComplete(id: Int) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 			builder.setProgress(100, 100, false)
 					.setContentTitle(context.getString(R.string.download_complete))
+					.setContentIntent(pendingIntent)
 			notifyManager.notify(id, builder.build())
 
 		} else {
 
 			builderCompat.setProgress(100, 100, false)
 					.setContentTitle(context.getString(R.string.download_complete))
+					.setContentIntent(pendingIntent)
 			notifyManager.notify(id, builderCompat.build())
 		}
 	}
-
 
 	fun showNotificationFailed(id: Int) {
 

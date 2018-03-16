@@ -31,6 +31,4 @@ object DailyMotionParser : Parser {
 		val found = urlRegex.find(scriptStr)
 		return found?.value?.replace("\\", "")
 	}
-
-
 }
