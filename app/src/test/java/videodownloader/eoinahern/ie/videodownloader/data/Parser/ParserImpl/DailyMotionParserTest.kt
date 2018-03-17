@@ -4,7 +4,7 @@ import de.jodamob.kotlin.testrunner.KotlinTestRunner
 import junit.framework.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import videodownloader.eoinahern.ie.videodownloader.data.models.HTMLUtilsFactory
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.html.HTMLUtilsFactory
 import videodownloader.eoinahern.ie.videodownloader.tools.attr_title
 import videodownloader.eoinahern.ie.videodownloader.tools.dailymotion_url
 import videodownloader.eoinahern.ie.videodownloader.tools.suffix_title

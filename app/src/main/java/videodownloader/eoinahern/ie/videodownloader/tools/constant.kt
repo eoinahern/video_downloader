@@ -37,8 +37,11 @@ const val channel_desc = "download_channel_updates"
 //intent
 const val location_intent_title = "location_intent"
 
-
+//permissions
 const val PERMISSION_WRITE_STORAGE : Int = 33
+
+//exception text
+const val UNKNOWN_URL = "unknown site"
 
 
 

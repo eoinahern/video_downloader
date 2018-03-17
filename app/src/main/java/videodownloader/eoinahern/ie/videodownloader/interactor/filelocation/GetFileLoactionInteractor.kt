@@ -4,16 +4,13 @@ import io.reactivex.Observable
 import okhttp3.HttpUrl
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.Parser
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserFactory
-import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.DailyMotionParser
-import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.HtmlParser
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
-import videodownloader.eoinahern.ie.videodownloader.data.models.HTMLUtilsFactory
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.html.HTMLUtilsFactory
 import videodownloader.eoinahern.ie.videodownloader.di.annotation.PerScreen
 import videodownloader.eoinahern.ie.videodownloader.interactor.base.BaseInteractor
 import videodownloader.eoinahern.ie.videodownloader.tools.attr_title
 import videodownloader.eoinahern.ie.videodownloader.tools.suffix_title
 import videodownloader.eoinahern.ie.videodownloader.tools.tag_title
-import java.io.IOException
 
 import javax.inject.Inject
 
@@ -23,12 +20,6 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 													private val parserFactory: ParserFactory) : BaseInteractor<String>() {
 
 	lateinit var url: String
-
-	/**
-	 * TODO : need to check url scheme to match specific suffix, file type
-	 * TODO: and tag!. otherwise defualt params used
-	 *
-	 */
 
 	override fun buildObservable(): Observable<String> {
 
