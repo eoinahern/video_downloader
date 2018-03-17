@@ -59,7 +59,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 	private fun showSelectPermissions() {
 
 		ActivityCompat.requestPermissions(this,
-				arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_WRITE_STORAGE)
+				arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), PERMISSION_WRITE_STORAGE)
 
 	}
 

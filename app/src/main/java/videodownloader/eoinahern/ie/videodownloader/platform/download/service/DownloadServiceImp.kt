@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
 import android.util.Log
+import android.webkit.MimeTypeMap
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadController
 import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadServiceComponent
@@ -13,6 +14,9 @@ import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import java.io.File
 import javax.inject.Inject
+import android.content.pm.ResolveInfo
+import android.content.pm.PackageManager
+import android.os.Environment
 
 
 class DownloadServiceImp : Service(), DownloadService {
@@ -51,14 +55,17 @@ class DownloadServiceImp : Service(), DownloadService {
 
 	}
 
-	override fun createPlayVideoIntent(file : File): PendingIntent {
+	override fun createPlayVideoIntent(file: File): PendingIntent {
 
-		val intent = Intent(Intent.ACTION_VIEW)
+		var intent = Intent(Intent.ACTION_VIEW)
+		intent = intent
+				.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+				.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
 		val uri = Uri.fromFile(file)
-		intent.data = uri
-		println(this.contentResolver.getType(uri)) //not working??
-		intent.type = "video/mp4"
-		return PendingIntent.getActivity(this, reqCode++, intent,  PendingIntent.FLAG_UPDATE_CURRENT)
+		intent.setDataAndType(uri.normalizeScheme(), "video/*")
+		return PendingIntent.getActivity(this, reqCode++, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 	}
 
 	override fun serviceStop() {

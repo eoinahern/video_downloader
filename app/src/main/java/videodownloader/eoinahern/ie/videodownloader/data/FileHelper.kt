@@ -1,10 +1,6 @@
 package videodownloader.eoinahern.ie.videodownloader.data
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.webkit.URLUtil
 import java.io.File
 import javax.inject.Inject
@@ -23,6 +19,7 @@ class FileHelper @Inject constructor(var cont: Context, var downloadDir: File) {
 		filePath = getBaseLoaction() + name
 		videoFile = File(getBaseLoaction(), name)
 		videoFile.setWritable(true)
+		videoFile.setReadable(true)
 		return videoFile
 	}
 
