@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import videodownloader.eoinahern.ie.videodownloader.MyApp
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserFactory
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import java.io.File
 import javax.inject.Singleton
@@ -46,4 +47,8 @@ class AppModule(var myApp: MyApp) {
 	@Singleton
 	fun getDownloadNotifHelper(context: Context, notifManager: NotificationManager):
 			DownloadNotificationHelper = DownloadNotificationHelper(context, notifManager)
+
+	@Provides
+	@Singleton
+	fun getParserFactory(): ParserFactory = ParserFactory
 }

@@ -5,8 +5,6 @@ import android.app.Service
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
-import android.util.Log
-import android.webkit.MimeTypeMap
 import videodownloader.eoinahern.ie.videodownloader.MyApp
 import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadController
 import videodownloader.eoinahern.ie.videodownloader.platform.download.DownloadServiceComponent
@@ -14,13 +12,8 @@ import videodownloader.eoinahern.ie.videodownloader.tools.location_intent_title
 import videodownloader.eoinahern.ie.videodownloader.ui.util.DownloadNotificationHelper
 import java.io.File
 import javax.inject.Inject
-import android.content.pm.ResolveInfo
-import android.content.pm.PackageManager
-import android.os.Environment
-
 
 class DownloadServiceImp : Service(), DownloadService {
-
 
 	@Inject
 	lateinit var notificationHelper: DownloadNotificationHelper
@@ -46,11 +39,11 @@ class DownloadServiceImp : Service(), DownloadService {
 			notificationHelper.createChannel()
 		}
 
-		var notif = notificationHelper.createNotification()
+		var notification = notificationHelper.createNotification()
 		var notificationID = notificationHelper.getNotificationID()
 		downloadController.downloadFile(location, notificationID)
 
-		startForeground(notificationID, notif)
+		startForeground(notificationID, notification)
 		return Service.START_STICKY
 
 	}
@@ -70,6 +63,5 @@ class DownloadServiceImp : Service(), DownloadService {
 
 	override fun serviceStop() {
 		stopSelf()
-
 	}
 }

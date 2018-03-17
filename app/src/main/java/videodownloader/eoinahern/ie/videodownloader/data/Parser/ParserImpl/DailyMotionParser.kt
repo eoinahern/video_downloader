@@ -1,6 +1,7 @@
 package videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl
 
 import org.jsoup.Jsoup
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.Parser
 
 
 object DailyMotionParser : Parser {

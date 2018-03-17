@@ -2,6 +2,8 @@ package videodownloader.eoinahern.ie.videodownloader.interactor.filelocation
 
 import io.reactivex.Observable
 import okhttp3.HttpUrl
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.Parser
+import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserFactory
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.DailyMotionParser
 import videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl.HtmlParser
 import videodownloader.eoinahern.ie.videodownloader.data.RequestHelper
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @PerScreen
 class GetFileLoactionInteractor @Inject constructor(private val reqHelper: RequestHelper,
-													private val htmlUtilsFactory: HTMLUtilsFactory) : BaseInteractor<String>() {
+													private val htmlUtilsFactory: HTMLUtilsFactory,
+													private val parserFactory: ParserFactory) : BaseInteractor<String>() {
 
 	lateinit var url: String
 
@@ -34,19 +37,12 @@ class GetFileLoactionInteractor @Inject constructor(private val reqHelper: Reque
 			val httpurl = HttpUrl.parse(url)
 			val host = httpurl?.host()
 
-
 			val htmlUtils = htmlUtilsFactory.getFileParserUtils(host)
+			val parser: Parser = parserFactory.searchParser(host)
 			val htmlStr: String? = reqHelper.getPageSource(url)
 
-			//need to implement a different parser helper for each site.
-			//page source is different. needs to be parsed in a different
-			//manner
-
-
-			DailyMotionParser.search(htmlStr, htmlUtils.getValue(tag_title),
+			parser.search(htmlStr, htmlUtils.getValue(tag_title),
 			htmlUtils.getValue(attr_title), htmlUtils.getValue(suffix_title))
 		}
 	}
-
-
 }

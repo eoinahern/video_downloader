@@ -28,7 +28,9 @@ class HTMLUtilsFactory @Inject constructor() {
 		return when(scheme) {
 			dailymotion_url ->  dailyMotionMap
 			bitchute_url ->  bitchuteMap
-			else -> throw IOException()
+			liveleak_url -> bitchuteMap
+			worldstar_url -> bitchuteMap
+			else -> throw IOException("unknown url")
 		}
 	}
 }

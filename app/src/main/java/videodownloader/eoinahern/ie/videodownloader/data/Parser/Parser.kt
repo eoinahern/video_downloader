@@ -1,4 +1,4 @@
-package videodownloader.eoinahern.ie.videodownloader.data.Parser.ParserImpl
+package videodownloader.eoinahern.ie.videodownloader.data.Parser
 
 import videodownloader.eoinahern.ie.videodownloader.tools.mp4_suffix
 import videodownloader.eoinahern.ie.videodownloader.tools.source_tag
