@@ -15,15 +15,14 @@ object LiveLeakParser : Parser {
 
 		for (item in srcElements) {
 
-			if (item.attr(attr) != null) {
-				val attr = item.attr(attr)
-				println(attr.toString())
-				return attr.toString()
+			val url = item.attr(attr)
+
+			if (url != null  && url.contains(suffix)) {
+				return url.toString()
 			}
 		}
 
 		return ""
-
 	}
 
 }
