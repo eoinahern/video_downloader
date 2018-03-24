@@ -26,7 +26,7 @@ class HTMLUtilsFactory @Inject constructor() {
 	}
 
 	private val liveLeakMap: Map<String, String> by lazy {
-		mapOf(suffix_title to mp4_suffix, tag_title to source_tag,
+		mapOf(suffix_title to mp4_suffix, tag_title to video_tag,
 				attr_title to src_attr)
 	}
 
@@ -43,7 +43,7 @@ class HTMLUtilsFactory @Inject constructor() {
 			bitchute_url -> bitchuteMap
 			liveleak_url -> liveLeakMap
 			worldstar_url -> worldStarMap
-			else -> throw IOException(UNKNOWN_URL)  //custom exception?
+			else -> throw IOException(UNKNOWN_URL)
 		}
 	}
 }

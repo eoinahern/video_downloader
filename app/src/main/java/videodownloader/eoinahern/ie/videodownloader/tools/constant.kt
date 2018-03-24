@@ -24,6 +24,7 @@ const val avi_suffix = ".avi"
 const val tag_title = "tag"
 const val source_tag = "source"
 const val link_tag = "a"
+const val video_tag = "video"
 
 //attr
 const val attr_title = "attr"
