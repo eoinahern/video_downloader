@@ -34,14 +34,4 @@ class DownloadController @Inject constructor(val backgroundDownloadInteractor: B
 		this.service = service
 	}
 
-
-	/*fun serviceStop() {
-
-		backgroundDownloadInteractor.dispose()
-		Log.d("serviceStop", "service stopped!!")
-
-		service.let {
-			it.serviceStop()
-		}
-	}*/
 }

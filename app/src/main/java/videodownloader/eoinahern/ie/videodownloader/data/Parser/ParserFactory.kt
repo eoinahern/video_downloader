@@ -16,7 +16,7 @@ object ParserFactory {
 
 			dailymotion_url -> DailyMotionParser
 			liveleak_url ->  LiveLeakParser
-			worldstar_url ->  WorldStarParser
+			worldstar_url, worldstar_m_url ->  WorldStarParser
 			bitchute_url ->  HtmlParser
 			else -> throw IOException(UNKNOWN_URL)
 		}

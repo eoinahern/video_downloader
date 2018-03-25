@@ -12,6 +12,7 @@ const val bitchute_url = "www.bitchute.com"
 const val dailymotion_url = "www.dailymotion.com"
 const val liveleak_url ="www.liveleak.com"
 const val worldstar_url = "www.worldstarhiphop.com"
+const val worldstar_m_url = "m.worldstarhiphop.com"
 
 //suffix
 const val suffix_title = "suffix"
@@ -25,6 +26,7 @@ const val tag_title = "tag"
 const val source_tag = "source"
 const val link_tag = "a"
 const val video_tag = "video"
+const val script_tag = "script"
 
 //attr
 const val attr_title = "attr"
