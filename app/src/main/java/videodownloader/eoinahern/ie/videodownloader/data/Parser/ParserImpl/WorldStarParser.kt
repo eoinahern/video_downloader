@@ -22,7 +22,6 @@ object WorldStarParser : Parser {
 		}
 
 		return ""
-
 	}
 
 }

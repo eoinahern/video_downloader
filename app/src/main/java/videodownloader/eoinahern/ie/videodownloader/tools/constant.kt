@@ -31,6 +31,7 @@ const val script_tag = "script"
 //attr
 const val attr_title = "attr"
 const val src_attr = "src"
+const val id_attr = "id"
 
 
 //notification channel id

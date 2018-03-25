@@ -16,13 +16,8 @@ class HTMLUtilsFactory @Inject constructor() {
 	}
 
 	private val dailyMotionMap: Map<String, String> by lazy {
-		mapOf(suffix_title to mp4_suffix, tag_title to "script",
-				attr_title to "id")
-	}
-
-	private val veohMap: Map<String, String> by lazy {
-		mapOf(suffix_title to mp4_suffix, tag_title to source_tag,
-				attr_title to src_attr)
+		mapOf(suffix_title to mp4_suffix, tag_title to script_tag,
+				attr_title to id_attr)
 	}
 
 	private val liveLeakMap: Map<String, String> by lazy {
