@@ -14,9 +14,9 @@ object DailyMotionParser : Parser {
 
 		val tagElements = doc.body().getElementsByTag(tag)
 
-		for (tag in tagElements) {
-			if (tag.attr(attr) == "page-data") {
-				val url = stripUrl(tag.data())
+		for (tagElement in tagElements) {
+			if (tagElement.attr(attr) == "page-data") {
+				val url = stripUrl(tagElement.data())
 
 				if (url !== null) {
 					return url

@@ -16,6 +16,42 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
+-keep class com.crashlytics.** { *; }
+-keep class com.crashlytics.android.**
+-keepattributes SourceFile, LineNumberTable, *Annotation*
+
+
+#okhttp3
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+
+-dontwarn dagger.internal.codegen.**
+-keepclassmembers,allowobfuscation class * {
+    @javax.inject.* *;
+    @dagger.* *;
+    <init>();
+}
+
+-dontwarn com.google.errorprone.annotations.*
+
+#dagger
+-keep class dagger.* { *; }
+-keep class javax.inject.* { *; }
+-keep class * extends dagger.internal.Binding
+-keep class * extends dagger.internal.ModuleAdapter
+-keep class * extends dagger.internal.StaticInjection
+
+
+-keeppackagenames org.jsoup.nodes
+
+
+
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
