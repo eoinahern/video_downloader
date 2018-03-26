@@ -4,10 +4,9 @@
 	<string name="download_name">Download</string>
 	<string name="cancel">Cancel</string>
 	<string name="error">Error!</string>
-	<string name="loading_started">Loading started!</string>
 	<string name="unrecogised_url">Unrecognised URL? Please try again!</string>
-	<string name="notification_title">Download started!</string>
-	<string name="notification_txt">Hello its downloading yipee!</string>
+	<string name="notification_start">Download started!</string>
+	<string name="notification_txt">Downloading has begun!</string>
 	<string name="url_hint">enter url http://...</string>
 	<string name="download_failed_title">Download Failed</string>
 	<string name="download_error">error downloading file!</string>

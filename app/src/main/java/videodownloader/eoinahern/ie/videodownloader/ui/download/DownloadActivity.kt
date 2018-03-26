@@ -111,7 +111,7 @@ class DownloadActivity : BaseActivity(), DownloadView {
 
 	override fun showStarted(location: String) {
 
-		Toast.makeText(this, R.string.loading_started, Toast.LENGTH_LONG).show()
+		Toast.makeText(this, R.string.notification_start, Toast.LENGTH_LONG).show()
 		urlTxt.text.clear()
 
 		startDownloadService(location)

@@ -5,16 +5,13 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
-import android.util.Log
 import videodownloader.eoinahern.ie.videodownloader.R
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_desc
 import videodownloader.eoinahern.ie.videodownloader.tools.channel_id
-import videodownloader.eoinahern.ie.videodownloader.ui.download.DownloadActivity
 
 /**
  * Singleton helper class to help manager apps notifications
@@ -45,7 +42,7 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			builder = Notification.Builder(context, channelID)
 					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.notification_title))
+					.setContentTitle(context.getString(R.string.notification_start))
 					.setProgress(100, 0, false)
 					.setContentText(context.getString(R.string.notification_txt))
 
@@ -53,7 +50,7 @@ class DownloadNotificationHelper constructor(var context: Context, var notifyMan
 		} else {
 			builderCompat = NotificationCompat.Builder(context, channelID)
 					.setSmallIcon(R.drawable.ic_download_dark)
-					.setContentTitle(context.getString(R.string.notification_title))
+					.setContentTitle(context.getString(R.string.notification_start))
 					.setProgress(100, 0, false)
 					.setContentText(context.getString(R.string.notification_txt))
 

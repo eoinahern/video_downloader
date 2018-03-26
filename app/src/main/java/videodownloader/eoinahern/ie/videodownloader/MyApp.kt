@@ -9,10 +9,9 @@ import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 
 
-
 class MyApp : Application() {
 
-	private lateinit var  appComponent: AppComponent
+	private lateinit var appComponent: AppComponent
 
 
 	override fun onCreate() {
@@ -33,7 +32,7 @@ class MyApp : Application() {
 	}
 
 	companion object {
-		fun get(context: Context) : MyApp = context.applicationContext as MyApp
+		fun get(context: Context): MyApp = context.applicationContext as MyApp
 	}
 }
 
